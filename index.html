@@ -618,6 +618,8 @@
             storefrontAccessToken: '147c570b262ff9839b0d3ee6070000b4',
         });
 
+        let bookedText = 'Fully Booked';
+
         ShopifyBuy.UI.onReady(client).then(
             function (ui) {
                 // Private Lessons
@@ -687,6 +689,8 @@
                         },
                         "text": {
                             "button": "Book",
+                            "outOfStock": bookedText,
+
                         },
                         "order": [
                             "img",
@@ -817,7 +821,7 @@
                 ui.createComponent('collection', {
                     id: '443187364070',
                     node: document.getElementById('collection-component-1718419270098'),
-                    moneyFormat: 'Price: %24%7B%7Bamount%7D%7D',
+                    moneyFormat: '%24%7B%7Bamount%7D%7D',
                     options: {
                     "productSet": {
                         "iframe": false,
@@ -886,6 +890,8 @@
                         },
                         "text": {
                             "button": "Book",
+                            "outOfStock": bookedText,
+
                         },
                         "order": [
                             "img",
@@ -906,7 +912,7 @@
                 ui.createComponent('collection', {
                     id: '443187396838',
                     node: document.getElementById('collection-component-1718421650096'),
-                    moneyFormat: 'Price: %24%7B%7Bamount%7D%7D',
+                    moneyFormat: '%24%7B%7Bamount%7D%7D',
                     options: {
                     "productSet": {
                         "iframe": false,
@@ -975,6 +981,8 @@
                         },
                         "text": {
                             "button": "Book",
+                            "outOfStock": bookedText,
+
                         },
                         "order": [
                             "img",
