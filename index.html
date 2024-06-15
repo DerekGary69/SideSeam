@@ -569,7 +569,7 @@
             <p>
                 If you have a specific inquiry, feel free to get in touch.
             </p>
-            <form action="#">
+            <form netlify>
                 <input type="text" id="name" name="name" placeholder="Name" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <textarea id="message" name="message" placeholder="Message" required></textarea>
@@ -944,6 +944,11 @@
     <style>
         .visuallyhidden, .shopify-buy__select-icon, .shopify-buy--visually-hidden {
             display: none;
+        }
+
+        .shopify-buy__btn-disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
         }
 
         input:focus,
