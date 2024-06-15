@@ -324,7 +324,7 @@
             cursor: pointer;
         }
 
-        .details {
+        .details, #formSuccess {
             max-height: 0;
             overflow: hidden;
             transition: all 0.5s ease-in-out;
@@ -575,6 +575,7 @@
                 <textarea id="message" name="message" placeholder="Message" required></textarea>
                 <button type="submit">Submit</button>
             </form>
+            <p id="formSuccess">Your form has been submitted. Thank you for your message, we will be in touch soon.</p>
             <script>
                 const handleSubmit = (event) => {
                 event.preventDefault();
@@ -587,7 +588,10 @@
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams(formData).toString(),
                 })
-                    .then(() => console.log("Form successfully submitted"))
+                    .then(() => {
+                        document.getElementById("formSuccess").classList.add("show");
+                        myForm.reset();
+                    })
                     .catch((error) => alert(error));
                 };
 
