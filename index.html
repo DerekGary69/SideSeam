@@ -88,7 +88,7 @@
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 2rem;
             font-weight: 600;
             font-style: italic;
             font-family: var(--header-font);
@@ -96,38 +96,43 @@
         }
 
         h2 {
-            font-size: 1.75em;
+            font-size: 1.75rem;
             font-weight: 500;
             padding: 1rem;
             font-family: var(--header-font);
+            padding-bottom: 2rem;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
 
         }
 
         hgroup h2 {
             padding: 0;
+
         }
 
         h3 {
-            font-size: 1.5em;
+            font-size: 1.5rem;
             font-weight: 500;
             padding-top: 1rem;
             font-family: var(--header-font);
-            word-spacing: 0.25em;
+            word-spacing: 0.25rem;
         }
 
         h4 {
-            font-size: 1.25em;
+            font-size: 1.25rem;
             font-weight: 400;
             font-style: italic;
         }
 
         h5 {
-            font-size: 1.25em;
+            font-size: 1.25rem;
             font-weight: 500;
         }
 
         p {
-            font-size: 1.25em;
+            font-size: 1.25rem;
             font-weight: 300;
         }
 
@@ -200,26 +205,28 @@
         section {
             display: flex;
             flex-direction: column;
-            padding: 1em 0;
+            padding: 1rem 0;
         }
 
         article {
-            padding: 0 1em;
+            padding: 0;
             display: flex;
             flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         article p {
-            padding-bottom: 0.5em;
+            padding-bottom: 0.5rem;
         }
 
         button {
             background-color: var(--button-colour);
             color: var(--button-text);
-            font-size: 1.25em;
-            border-radius: 0.5em;
+            font-size: 1.25rem;
+            border-radius: 0.5rem;
             border: none;
-            padding: 0.6em 1em;
+            padding: 0.6rem 1rem;
             cursor: pointer;
             align-self: flex-end;
         }
@@ -240,12 +247,16 @@
         }
 
         li {
-            padding-bottom: 1em;
+            padding-bottom: 1rem;
         }
 
         hgroup {
-            padding: 1em;
+            padding: 1rem;
             line-height: 1.25;
+            padding-bottom: 2rem;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         img {
@@ -296,7 +307,7 @@
         }
 
         #about p {
-            padding: 1rem 0 0 0 
+            padding: 1rem; 
         }
 
         section#private {
@@ -378,6 +389,8 @@
             align-items: flex-start;
             gap: 1rem;
             margin-bottom: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* burger menu */
@@ -456,125 +469,45 @@
 
 
                 <h2>One-To-One Lessons</h2>
-                <div id='collection-component-1718350931193'></div>
+                <article id='collection-component-1718350931193'></article>
 
-                <figure>
-                    <img src="images/private1_rotated.png" alt="Private Lesson Image">
-                </figure>
-                <article>
-                    <h3>Private Sewing Tuition</h3>
-                    <p>Work on your own personal project. Book one session or many in advance.</p>
-                    <p>2 hours duration.</p>
-                    <p>Price: $60 p/h</p>
-                    <div class="details"> 
-                        <h4>What to bring:</h4>
-                        <p>It’s best to bring your own sewing machine. If you can’t, I have a couple of simple old machines you can use.</p>
-
-                        <p>You will need to bring your own fabric for most projects. Fabrics made of natural fibre (eg cotton, wool, linen) are easier to make look good and nicer to wear.</p>
-                        <p>Secondhand fabric and repurposed garments can be used for many projects. Look in op shops for good quality zippers and buttons.</p>
-
-                        <p>If you’re not sure what fabric to choose, <a href="#contact">get in touch.</a></p>
-
-                    </div>
-                    <p class="moreInfo">More info...</p>
-                    <button class="book">Book</button>
-                </article>
+                
             </section>
             <section id="multisession">
                 <hgroup>
                     <h2>Multi-Session Lessons</h2>
                     <h4>For two to three people.</h4>
                 </hgroup>
-                <figure>
-                    <img id="bagImg" src="images/bag1.png" alt="Bag Image">
-                </figure>
-                <article id="bag">
-                    <h3>No Waste Boxy Bag</h3>
-                    <p>Make a structured bag with handles.</p>
-                    <p>Three 2-hour lessons over three weeks.</p>
-                    <p>Price: $315</p>
-                    <div class="details">
-                        <p>Extra Details Here.</p>
-                    </div>
-                    <p class="moreInfo" onclick="moreInfo(this)">More info...</p>
-                    <button class="book">Book</button>
-                </article>
-                <figure>
-                    <img id="hatImg" src="images/hat1.png" alt="Hat Image">
-                </figure>
-                <article id="hat">
-                    <h3>Rain or Shine Hat</h3>
-                    <p>Work with circles, interfacing, topstitching and lining.</p>
-                    <p>Three 2-hour lessons over three weeks.</p>
-                    <p>Price: $315</p>
-                    <div class="details">
-                        <p>Extra Details Here.</p>
-                    </div>
-                    <p class="moreInfo" onclick="moreInfo(this)">More info...</p>
-                    <button class="book">Book</button>
-                </article>
-                <figure>
-                    <img id="cushionImg" src="images/cushion1.png" alt="Cushion Image">
-                </figure>
-                <article id="cushion">
-                    <h3>Comfy Cushion</h3>
-                    <p>Make a square or shaped cushion.</p>
-                    <p>A great way to learn the absolute basics if you’re new to sewing.</p>
-                    <p>Three 2-hour lessons over three weeks.</p>
-                    <p>Price: $315</p>
-                    <div class="details">
-                        <p>Extra Details Here.</p>
-                    </div>
-                    <p class="moreInfo" onclick="moreInfo(this)">More info...</p>
-                    <button class="book">Book</button>
-                </article>
+
+                <article id='collection-component-1718419270098'></article>
+
+                
             </section>
             <section id="dropin">
                 <hgroup>
                     <h2>Drop-In Lessons</h2>
                     <h4>For two to three people.</h4>
                 </hgroup>
-                <figure>
-                    <img id="probsharedImg" src="images/probshared1_rotated.png" alt="Problem Shared Image">
-                </figure>
-                <article id="problemshared">
-                    <h3>A Problem Shared...</h3>
-                    <p>Bring your own sewing projects to work on with company, cups of tea and technical assistance.</p>
-                    <p>2½ hour duration.</p>
-                    <p>Price: $90</p>
-                    <div class="details">
-                        <p>Extra Details Here.</p>
-                    </div>
-                    <p class="moreInfo" onclick="moreInfo(this)">More info...</p>
-                    <button class="book">Book</button>
-                </article>
-                <figure>
-                    <img id="offthecuffImg" src="images/offthecuff1.png" alt="Off the Cuff Image">
-                </figure>
-                <article id="offthecuff">
-                    <h3>Off The Cuff: Techniques</h3>
-                    <p>Learn a range of commonnhole, cuff and placket, boning, and diffeour duration.</p>
-                    <p>3 hour duration.</p>
-                    <p>Price: $105</p>
-                    <div class="details">
-                        <p>Extra Details Here.</p>
-                    </div>
-                    <p class="moreInfo" onclick="moreInfo(this)">More info...</p>
-                    <button class="book">Book</button>
-                </article>
+
+                <article id='collection-component-1718421650096'></article>
+
+                
             </section>
         </section>
         <section id="contact">
             <h2>Contact</h2>
-            <p>
-                If you have a specific inquiry, feel free to get in touch.
-            </p>
-            <form netlify>
-                <input type="text" id="name" name="name" placeholder="Name" required>
-                <input type="email" id="email" name="email" placeholder="Email" required>
-                <textarea id="message" name="message" placeholder="Message" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
+            <article>
+                <p>
+                    If you have a specific inquiry, feel free to get in touch.
+                </p>
+                <form netlify>
+                    <input type="text" id="name" name="name" placeholder="Name" required autocomplete="name">
+                    <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
+                    <textarea id="message" name="message" placeholder="Message" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </article>
+            
             <p id="formSuccess">Your form has been submitted. Thank you for your message, we will be in touch soon.</p>
             <script>
                 const handleSubmit = (event) => {
@@ -667,15 +600,17 @@
     }
     function ShopifyBuyInit() {
         var client = ShopifyBuy.buildClient({
-        domain: 'sideseamtest.myshopify.com',
-        storefrontAccessToken: '147c570b262ff9839b0d3ee6070000b4',
+            domain: 'sideseamtest.myshopify.com',
+            storefrontAccessToken: '147c570b262ff9839b0d3ee6070000b4',
         });
+
         ShopifyBuy.UI.onReady(client).then(
             function (ui) {
+                // Private Lessons
                 ui.createComponent('collection', {
                     id: '443158069478',
                     node: document.getElementById('collection-component-1718350931193'),
-                    moneyFormat: 'Price: %24%7B%7Bamount%7D%7D',
+                    moneyFormat: '%24%7B%7Bamount%7D%7D',
                     options: {
                     "productSet": {
                         "iframe": false,
@@ -690,7 +625,7 @@
                                 },
                                 
                             }
-                        }
+                        },
                     },
                     "product": {
                         "iframe": false,
@@ -705,9 +640,8 @@
 
                         "events": {
                             "afterRender": function(component) {
-                                console.log(component);
                                 let moreInfoBtns = document.querySelectorAll('h6');
-
+                                console.log(component);
                                 moreInfoBtns.forEach(btn => {
                                     if(btn.parentNode.querySelector('.details')) {
                                         return;
@@ -730,81 +664,6 @@
                             }
                         },
 
-                        "styles": {
-                            "product": {
-                                "@media (min-width: 601px)": {
-                                "max-width": "calc(25% - 20px)",
-                                "margin": "0",
-
-                                },
-                                "display": "flex",
-                                "flex-direction": "column",
-                            },
-
-                            "vertical": {
-                                "text-align": "left",
-                                "img": {
-                                    "max-height": "400px",
-                                    "margin": "0"
-                                },
-                                "buttonWithQuantity": {
-                                "margin": "0"
-                                }  
-                            },
-                            
-                            "quantity": {
-                                "margin": "0 !important",
-                                "padding": "0",
-                            
-                            },
-                            "buttonBesideQty": {
-                                "background-color": "#451616",
-                                "color": "#F9F3EC",
-                                "font-family": "Incconsolata, monospace",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                                "font-size": "20px",
-                                "padding": "8px 16px",
-                                "border-radius": "0.5em",
-                                'border-top-left-radius': '0.5em !important',
-                                'border-bottom-left-radius': '0.5em !important',
-                                "margin-left": "16px !important",
-                                ":hover": {
-                                    "background-color": "#F9F3EC",
-                                    "color": "#451616",
-                                }
-                            },
-                            "buttonWithQuantity": {
-                                "display": "flex",
-                                "justify-content": "flex-end",
-                                "align-items": "center",
-                                "padding": "0 16px",
-                                "quantityWithButtons": {
-                                    "display": "flex",
-                                    "justify-content": "center",
-                                    "align-items": "center",
-                                    "quantityInput": {
-                                        "border-radius": "50%",
-                                        "background-color": "#F9F3EC",
-                                    }
-
-                                }
-                            },
-                            "quantityIncrement": {
-                                "font-size": "26px",
-                                "color": "#451616",
-                                "border": "none",
-                                "line-height": "1",
-
-                            },
-                            "quantityDecrement": {
-                                "font-size": "26px",
-                                "color": "#451616",
-                                "border": "none",
-                                "line-height": "1",
-
-                            },
-                        },
                         "contents": {
                             "button": true,
                             "buttonWithQuantity": false,
@@ -824,27 +683,6 @@
                             "button",
                             "buttonWithQuantity"
                         ]
-                    },
-                    
-                    "modalProduct": {
-                        "contents": {
-                        "img": false,
-                        "imgWithCarousel": true,
-                        "button": false,
-                        "buttonWithQuantity": true
-                        },
-                        "styles": {
-                        "product": {
-                            "@media (min-width: 601px)": {
-                            "max-width": "100%",
-                            "margin-left": "0px",
-                            "margin-bottom": "0px"
-                            }
-                        }
-                        },
-                        "text": {
-                        "button": "Add to cart"
-                        }
                     },
                     "option": {},
                     "cart": {
@@ -957,6 +795,186 @@
                     }
                 },
                 });
+
+                //Course Lessons
+                // id: '443187364070',
+                // node: document.getElementById('collection-component-1718419270098'),
+        
+                ui.createComponent('collection', {
+                    id: '443187364070',
+                    node: document.getElementById('collection-component-1718419270098'),
+                    moneyFormat: 'Price: %24%7B%7Bamount%7D%7D',
+                    options: {
+                    "productSet": {
+                        "iframe": false,
+                        "contents": {
+                            "pagination": false
+                        },
+                        "styles": {
+                            "productSet": {
+                                "products": {
+                                    "padding": "0",
+                                    
+                                },
+                                
+                            }
+                        },
+                    },
+                    "product": {
+                        "iframe": false,
+                        
+                        "DOMEvents": {
+                            "click h6": function(event) {
+                                let details = this.wrapper.querySelector('.details');
+                                details.classList.toggle('show');
+                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                            }
+                        },
+
+                        "events": {
+                            "afterRender": function(component) {
+                                let moreInfoBtns = document.querySelectorAll('h6');
+
+                                moreInfoBtns.forEach(btn => {
+                                    if(btn.parentNode.querySelector('.details')) {
+                                        return;
+                                    }
+
+                                    let descriptionDiv = document.createElement('div');
+                                    descriptionDiv.className = 'details';
+
+                                    let nextElement = btn.nextElementSibling;
+                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                        // Move the p element to the description div
+                                        descriptionDiv.appendChild(nextElement);
+                                        nextElement = btn.nextElementSibling;
+                                    }
+
+                                    btn.parentNode.insertBefore(descriptionDiv, btn.nextSibling);
+
+                                });
+
+                                let quantContainer = this.view.wrapper.querySelector('.shopify-buy__quantity-container');
+
+                                let participants = document.createElement('p');
+                                participants.innerText = 'Number of Participants:';
+                                quantContainer.insertBefore(participants, quantContainer.firstChild);
+
+                            }
+                        },
+
+                        "contents": {
+                            "button": false,
+                            "buttonWithQuantity": true,
+                            "description": true,
+                            "quantityIncrement": false,
+                            "quantityDecrement": false,
+                        },
+                        "text": {
+                            "button": "Book",
+                        },
+                        "order": [
+                            "img",
+                            "title",
+                            "description",
+                            "price",
+                            "options",
+                            "button",
+                            "buttonWithQuantity"
+                        ]
+                    },
+                    "option": {},
+                    },
+                });
+                // Drop-In Lessons
+                //id: '443187396838',
+                //node: document.getElementById('collection-component-1718421650096'),
+                ui.createComponent('collection', {
+                    id: '443187396838',
+                    node: document.getElementById('collection-component-1718421650096'),
+                    moneyFormat: 'Price: %24%7B%7Bamount%7D%7D',
+                    options: {
+                    "productSet": {
+                        "iframe": false,
+                        "contents": {
+                            "pagination": false
+                        },
+                        "styles": {
+                            "productSet": {
+                                "products": {
+                                    "padding": "0",
+                                    
+                                },
+                                
+                            }
+                        },
+                    },
+                    "product": {
+                        "iframe": false,
+                        
+                        "DOMEvents": {
+                            "click h6": function(event) {
+                                let details = this.wrapper.querySelector('.details');
+                                details.classList.toggle('show');
+                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                            }
+                        },
+
+                        "events": {
+                            "afterRender": function(component) {
+                                let moreInfoBtns = document.querySelectorAll('h6');
+
+                                moreInfoBtns.forEach(btn => {
+                                    if(btn.parentNode.querySelector('.details')) {
+                                        return;
+                                    }
+
+                                    let descriptionDiv = document.createElement('div');
+                                    descriptionDiv.className = 'details';
+
+                                    let nextElement = btn.nextElementSibling;
+                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                        // Move the p element to the description div
+                                        descriptionDiv.appendChild(nextElement);
+                                        nextElement = btn.nextElementSibling;
+                                    }
+
+                                    btn.parentNode.insertBefore(descriptionDiv, btn.nextSibling);
+
+                                });
+
+                                let quantContainer = this.view.wrapper.querySelector('.shopify-buy__quantity-container');
+
+                                let participants = document.createElement('p');
+                                participants.innerText = 'Number of Participants:';
+                                quantContainer.insertBefore(participants, quantContainer.firstChild);
+
+                            }
+                        },
+
+                        "contents": {
+                            "button": false,
+                            "buttonWithQuantity": true,
+                            "description": true,
+                            "quantityIncrement": false,
+                            "quantityDecrement": false,
+                        },
+                        "text": {
+                            "button": "Book",
+                        },
+                        "order": [
+                            "img",
+                            "title",
+                            "description",
+                            "price",
+                            "options",
+                            "button",
+                            "buttonWithQuantity"
+                        ]
+                    },
+                    "option": {},
+                    },
+                });
             }
         )
     }
@@ -973,7 +991,7 @@
 
         .shopify-buy__btn-disabled {
             cursor: not-allowed;
-            opacity: 0.5;
+            background-color: #626262;
         }
 
         input:focus,
@@ -996,6 +1014,11 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+        }
+
+        .shopify-buy__quantity-container p {
+            padding: 0;
+            margin-left: 16px;
         }
 
         .shopify-buy__quantity{
