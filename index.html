@@ -7,9 +7,61 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <title>Side Seam Sewing</title>
+    <style>
+        /* http://meyerweb.com/eric/tools/css/reset/ 
+           v2.0 | 20110126
+           License: none (public domain)
+        */
+
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+    </style>
 </head>
 <body>
     <style>
+
+
         :root {
             font-size: 16px;
             --background: #F9F3EC;
@@ -23,7 +75,7 @@
             --body-font: 'Inconsolata', monospace;
         }
 
-        * {
+        *, html, body {
             font-family: var(--body-font);
             box-sizing: border-box;
             margin: 0;
@@ -98,6 +150,18 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+        }
+
+        #cart {
+            display: flex;
+            align-items: center;
+        }
+
+        #headerBtns {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
         }
 
         menu {
@@ -267,13 +331,13 @@
             padding: 0;
         }
 
-        .details > :last-child {
+        /* .details > :last-child {
             padding-bottom: 2.5rem;
-        }
+        } */
 
-        .details > :first-child {
+        /* .details > :first-child {
             padding-top: 1rem;
-        }
+        } */
 
         .show {
             max-height: 1000px;
@@ -355,12 +419,14 @@
     <header>
         <div id="headerMain">
              <h1 onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Side Seam</h1>
-            <div id="cart"></div>
-            <div class="burger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>        
+             <div id="headerBtns">
+                <div id="cart"></div>
+                <div class="burger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>  
+             </div>
         </div>
         <menu>
             <li onclick="menuOption('private')">One-To-One Lessons</li>
@@ -386,7 +452,12 @@
         </section>
         <section id="lessons">
             <section id="private">
+
+
+
                 <h2>One-To-One Lessons</h2>
+                <div id='collection-component-1718350931193'></div>
+
                 <figure>
                     <img src="images/private1_rotated.png" alt="Private Lesson Image">
                 </figure>
@@ -405,7 +476,7 @@
                         <p>If you’re not sure what fabric to choose, <a href="#contact">get in touch.</a></p>
 
                     </div>
-                    <p class="moreInfo" onclick="moreInfo(this)">More info...</p>
+                    <p class="moreInfo">More info...</p>
                     <button class="book">Book</button>
                 </article>
             </section>
@@ -515,11 +586,13 @@
         <p class="ul" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Return To Top</p>
     </footer>
     <script>
-        function moreInfo(targ) {
-            targ.parentNode.querySelector('.details').classList.toggle('show');
-            targ.innerText = targ.innerText === 'More info...' ? 'Less info...' : 'More info...';
-            targ.parentNode.scrollIntoView({ behavior: 'smooth' });
-        }
+        let moreInfoBtns = document.querySelectorAll('.moreInfo');
+        moreInfoBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                let details = this.parentNode.querySelector('.details');
+                details.classList.toggle('show');
+            });
+        });
 
         function toggleMenu() {
             document.querySelector('menu').classList.toggle('open');
@@ -543,5 +616,468 @@
         }
         
     </script>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+    var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+        ShopifyBuyInit();
+        
+        } else {
+        loadScript();
+        }
+    } else {
+        loadScript();
+        
+    }
+    function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit
+
+    }
+    function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+        domain: 'sideseamtest.myshopify.com',
+        storefrontAccessToken: '147c570b262ff9839b0d3ee6070000b4',
+        });
+        ShopifyBuy.UI.onReady(client).then(
+            function (ui) {
+                ui.createComponent('collection', {
+                    id: '443158069478',
+                    node: document.getElementById('collection-component-1718350931193'),
+                    moneyFormat: 'Price: %24%7B%7Bamount%7D%7D',
+                    options: {
+                    "productSet": {
+                        "iframe": false,
+                        "contents": {
+                            "pagination": false
+                        },
+                        "styles": {
+                            "productSet": {
+                                "products": {
+                                    "padding": "0",
+                                    
+                                },
+                                
+                            }
+                        }
+                    },
+                    "product": {
+                        "iframe": false,
+                        
+                        "DOMEvents": {
+                            "click h6": function(event) {
+                                let details = this.wrapper.querySelector('.details');
+                                details.classList.toggle('show');
+                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                            }
+                        },
+
+                        "events": {
+                            "afterRender": function(component) {
+                                console.log(component);
+                                let moreInfoBtns = document.querySelectorAll('h6');
+
+                                moreInfoBtns.forEach(btn => {
+                                    if(btn.parentNode.querySelector('.details')) {
+                                        return;
+                                    }
+
+                                    let descriptionDiv = document.createElement('div');
+                                    descriptionDiv.className = 'details';
+
+                                    let nextElement = btn.nextElementSibling;
+                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                        // Move the p element to the description div
+                                        descriptionDiv.appendChild(nextElement);
+                                        nextElement = btn.nextElementSibling;
+                                    }
+
+                                    btn.parentNode.insertBefore(descriptionDiv, btn.nextSibling);
+
+                                });
+
+                            }
+                        },
+
+                        "styles": {
+                            "product": {
+                                "@media (min-width: 601px)": {
+                                "max-width": "calc(25% - 20px)",
+                                "margin": "0",
+
+                                },
+                                "display": "flex",
+                                "flex-direction": "column",
+                            },
+
+                            "vertical": {
+                                "text-align": "left",
+                                "img": {
+                                    "max-height": "400px",
+                                    "margin": "0"
+                                },
+                                "buttonWithQuantity": {
+                                "margin": "0"
+                                }  
+                            },
+                            
+                            "quantity": {
+                                "margin": "0 !important",
+                                "padding": "0",
+                            
+                            },
+                            "buttonBesideQty": {
+                                "background-color": "#451616",
+                                "color": "#F9F3EC",
+                                "font-family": "Incconsolata, monospace",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                                "font-size": "20px",
+                                "padding": "8px 16px",
+                                "border-radius": "0.5em",
+                                'border-top-left-radius': '0.5em !important',
+                                'border-bottom-left-radius': '0.5em !important',
+                                "margin-left": "16px !important",
+                                ":hover": {
+                                    "background-color": "#F9F3EC",
+                                    "color": "#451616",
+                                }
+                            },
+                            "buttonWithQuantity": {
+                                "display": "flex",
+                                "justify-content": "flex-end",
+                                "align-items": "center",
+                                "padding": "0 16px",
+                                "quantityWithButtons": {
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center",
+                                    "quantityInput": {
+                                        "border-radius": "50%",
+                                        "background-color": "#F9F3EC",
+                                    }
+
+                                }
+                            },
+                            "quantityIncrement": {
+                                "font-size": "26px",
+                                "color": "#451616",
+                                "border": "none",
+                                "line-height": "1",
+
+                            },
+                            "quantityDecrement": {
+                                "font-size": "26px",
+                                "color": "#451616",
+                                "border": "none",
+                                "line-height": "1",
+
+                            },
+                        },
+                        "contents": {
+                            "button": true,
+                            "buttonWithQuantity": false,
+                            "description": true,
+                            "quantityIncrement": false,
+                            "quantityDecrement": false,
+                        },
+                        "text": {
+                            "button": "Book",
+                        },
+                        "order": [
+                            "img",
+                            "title",
+                            "description",
+                            "price",
+                            "options",
+                            "button",
+                            "buttonWithQuantity"
+                        ]
+                    },
+                    
+                    "modalProduct": {
+                        "contents": {
+                        "img": false,
+                        "imgWithCarousel": true,
+                        "button": false,
+                        "buttonWithQuantity": true
+                        },
+                        "styles": {
+                        "product": {
+                            "@media (min-width: 601px)": {
+                            "max-width": "100%",
+                            "margin-left": "0px",
+                            "margin-bottom": "0px"
+                            }
+                        }
+                        },
+                        "text": {
+                        "button": "Add to cart"
+                        }
+                    },
+                    "option": {},
+                    "cart": {
+                        "iframe": true,
+                        "styles": {
+                            "lineItems": {
+                                "margin-top": "20px",
+                                "font-size": "16px",
+                                
+                            },
+                            "cart": {
+                                "background-color": "#F9F3EC",
+                                "color": "#451616",
+                                "font-size": "16px",
+                                
+                            },
+                            "notice": {
+                                "display": "none"
+                            },
+                            
+                            "header": {
+                                "padding": "16px",
+
+                            },
+                            "cart-items": {
+                                "padding": "100px 0 135px 0"
+                            },
+                            "title": {
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                                "font-size": "28px",
+                            },
+                            "subtotal": {
+                                "font-size": "24px",
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                            },
+                            "subtotalText": {
+                                "font-size": "20px",
+                                "text-transform": "unset",
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                            },
+                            "button": {
+                                "background-color": "#451616",
+                                "color": "#F9F3EC",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                                "font-size": "24px",
+                                "padding": "16px",
+                                "border-radius": "0.5em",
+                            },
+                            "footer": {
+                                "background-color": "#F9F3EC",
+                                "color": "#451616",
+                            },
+                        },
+                        "text": {
+                        "total": "Subtotal:",
+                        "button": "Checkout"
+                        },
+                        "popup": false,
+                        
+                    },
+                    "lineItem": {
+                        "styles": {
+                            "lineItem": {
+                                "font-size": "18px",
+                            },
+                            "itemTitle": {
+                                "font-size": "24px",
+                            },
+                            "variantTitle": {
+                                "font-size": "18px",
+                            },
+                            "price": {
+                                "font-size": "24px",
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                            },
+                        },
+                    },
+                    "toggle": {
+                        "iframe": false,
+                        "events": {
+                            "afterRender": function(component) {
+                                let cart = document.getElementById('cart');
+                                cart.appendChild(component.node);
+                            }
+                        },
+                        "sticky": false
+                    }
+                },
+                });
+            }
+        )
+    }
+    })();
+    /*]]>*/
+
+
+    </script>
+
+    <style>
+        .visuallyhidden, .shopify-buy__select-icon, .shopify-buy--visually-hidden {
+            display: none;
+        }
+
+        .shopify-buy__layout-vertical {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 2rem;
+        }
+
+        .shopify-buy__quantity-container {
+            width: min-content;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .shopify-buy__quantity{
+            max-width: 30%;
+            padding: 0.6em 1em;
+            border: none;
+            width: max-content;
+            text-align: center;
+            margin: 0;
+            margin-left: 16px;
+        }
+
+        .shopify-buy__btn-and-quantity {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0;
+        }
+
+        .shopify-buy__btn-wrapper {
+            align-self: flex-end;
+            margin-right: 16px;
+        }
+
+        .toggleContainer {
+            display: unset;
+            position: unset;
+            right: 0;
+            top: 0;
+            transform: translateY(0);
+            -webkit-transform: translateY(0);
+
+        }
+
+        .shopify-buy__cart-toggle {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.25rem;
+
+        }
+
+        .shopify-buy__icon-cart {
+            width: 2rem;
+            height: 2rem;
+            color: var(--font-colour);
+            fill: var(--font-colour);
+        }
+
+        .shopify-buy__cart {
+            background-color: var(--background);
+            height: 100svh;
+        }
+
+        .shopify-buy__cart__header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--font-colour);
+            color: var(--background);
+        }
+
+        .shopify-buy__cart__title {
+            font-size: 2rem;
+        }
+
+        .shopify-buy__cart__header > * {
+            padding: 0;
+        }
+        
+        h6 {
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 1.25rem;
+            font-weight: 300;
+            width: max-content;
+        }
+
+        .shopify-buy__product__title {
+            padding: 0 1rem;
+            font-size: 1.5em;
+            font-weight: 500;
+            padding-top: 1rem;
+            font-family: var(--header-font);
+            word-spacing: 0.25em;
+        }
+
+        .shopify-buy__product-description {
+            padding: 0 1rem;
+        }
+
+        .shopify-buy__product-description p, h6 {
+            padding-bottom: 0.5em;
+        }
+
+        .shopify-buy__product__price {
+            padding: 0 1rem;
+            font-size: 1.25em;
+            font-weight: 300;
+        }
+
+        .shopify-buy__option-select-wrapper {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shopify-buy__option-select__select {
+            padding: 0.5rem 1rem;
+            font-size: 1.25em;
+            margin: 0;
+            /* width: max-content; */
+            background-color: var(--font-colour);
+            border-radius: 0.5em;
+            color: var(--background);
+            
+        }
+
+        .shopify-buy__collection-products {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+    </style>
 </body>
 </html>
