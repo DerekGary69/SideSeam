@@ -59,10 +59,10 @@
     </style>
 </head>
 <body>
-    <div id="blocker">
+    <!-- <div id="blocker">
         <h2>Site Currently Under Construction</h2>
         <p>We apologize for the inconvenience, but our site is currently under construction. Please check back later for updates.</p>
-    </div>
+    </div> -->
     <style>
 
 
@@ -98,7 +98,7 @@
             margin: 0;
         }
 
-        #blocker {
+        /* #blocker {
             position: absolute;
             top: 0;
             left: 0;
@@ -115,7 +115,7 @@
 
         main {
             display: none;
-        }
+        } */
 
         body {
             background-color: var(--background);
@@ -492,7 +492,10 @@
         <section id="about">
             <!-- <img style="max-height: unset;" src="placeholder.jpeg" alt="Portrait of Imogen"> -->
 
-            <article>
+            <article id='product-component-1719369822001'></article>
+
+
+            <!-- <article>
                 <p>
                     Side Seam is a sewing studio run by Imogen Keen.<br><br>
                     We teach sewing skills at all levels, as well as design, pattern making, repurposing and mending.<br><br>
@@ -500,7 +503,7 @@
                     The Side Seam studio is small, casual and inclusive. There are tea and coffee making facilities, and a table in the garden for breaks.<br><br>
                     We are located in Hackett, in Canberra’s inner north.
                 </p>
-            </article>
+            </article> -->
         </section>
         
         <section id="lessons">
@@ -522,8 +525,8 @@
             </svg>
             <section id="multisession">
                 <hgroup>
-                    <h2>Multi-Session Lessons</h2>
-                    <h4>For two to three people.</h4>
+                    <h2>In-House Projects</h2>
+                    <h4>Learn techniques in a small group with a set project.</h4>
                 </hgroup>
 
                 <article id='collection-component-1718419270098'></article>
@@ -661,6 +664,199 @@
 
         ShopifyBuy.UI.onReady(client).then(
             function (ui) {
+
+                //Header 
+                ui.createComponent('product', {
+                    id: '6891729223752',
+                    node: document.getElementById('product-component-1719369822001'),
+                    moneyFormat: '%24%7B%7Bamount%7D%7D',
+                    options: {
+                    "productSet": {
+                        "iframe": false,
+                        "contents": {
+                            "pagination": false
+                        },
+                        "styles": {
+                            "productSet": {
+                                "products": {
+                                    "padding": "0",
+                                    
+                                },
+                                
+                            }
+                        },
+                    },
+                    "product": {
+                        "iframe": false,
+                        
+                        "DOMEvents": {
+                            "click h6": function(event) {
+                                let details = this.wrapper.querySelector('.details');
+                                details.classList.toggle('show');
+                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                            }
+                        },
+
+                        "events": {
+                            "afterRender": function(component) {
+                                let moreInfoBtns = document.querySelectorAll('h6');
+                                console.log(component);
+                                moreInfoBtns.forEach(btn => {
+                                    if(btn.parentNode.querySelector('.details')) {
+                                        return;
+                                    }
+
+                                    let descriptionDiv = document.createElement('div');
+                                    descriptionDiv.className = 'details';
+
+                                    let nextElement = btn.nextElementSibling;
+                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                        // Move the p element to the description div
+                                        descriptionDiv.appendChild(nextElement);
+                                        nextElement = btn.nextElementSibling;
+                                    }
+
+                                    btn.parentNode.insertBefore(descriptionDiv, btn);
+
+                                });
+
+                            }
+                        },
+
+                        "contents": {
+                            "button": true,
+                            "buttonWithQuantity": false,
+                            "description": true,
+                            "quantityIncrement": false,
+                            "quantityDecrement": false,
+                        },
+                        "text": {
+                            "button": "Book",
+                            "outOfStock": bookedText,
+
+                        },
+                        "order": [
+                            "img",
+                            "title",
+                            "description",
+                            "price",
+                            "options",
+                            "button",
+                            "buttonWithQuantity"
+                        ]
+                    },
+                    "option": {},
+                    "cart": {
+                        "iframe": true,
+                        "styles": {
+                            "close": {
+                                "outline": "0",
+                                "position": "relative",
+                                "top": "0",
+                                "right": "0",
+                                "font-family": "Karla, sans-serif",
+                            },
+
+                            "lineItems": {
+                                "margin-top": "20px",
+                                "font-size": "16px",
+                                
+                            },
+                            "cart": {
+                                "background-color": "#F9F3EC",
+                                "color": "#451616",
+                                "font-size": "16px",
+                                
+                            },
+                            "notice": {
+                                "display": "none"
+                            },
+                            
+                            "header": {
+                                "padding": "16px",
+                                "display": "flex",
+                                "justify-content": "space-between",
+                            },
+                            "cart-items": {
+                                "padding": "100px 0 135px 0"
+                            },
+                            "title": {
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                                "font-size": "28px",
+                            },
+                            "subtotal": {
+                                "font-size": "24px",
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                            },
+                            "subtotalText": {
+                                "font-size": "20px",
+                                "text-transform": "unset",
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                            },
+                            "button": {
+                                "background-color": "#451616",
+                                "color": "#F9F3EC",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                                "font-size": "24px",
+                                "padding": "16px",
+                                "border-radius": "0.5em",
+                            },
+                            "footer": {
+                                "background-color": "#F9F3EC",
+                                "color": "#451616",
+                            },
+                        },
+                        "text": {
+                        "total": "Subtotal:",
+                        "button": "Checkout"
+                        },
+                        "popup": false,
+                        
+                    },
+                    "lineItem": {
+                        "styles": {
+                            "lineItem": {
+                                "font-size": "18px",
+                            },
+                            "itemTitle": {
+                                "font-size": "24px",
+                            },
+                            "variantTitle": {
+                                "font-size": "18px",
+                            },
+                            "price": {
+                                "font-size": "24px",
+                                "color": "#451616",
+                                "font-family": "Karla, sans-serif",
+                                "font-weight": "500",
+                                "line-height": "1.5",
+                            },
+                        },
+                    },
+                    "toggle": {
+                        "iframe": false,
+                        "events": {
+                            "afterRender": function(component) {
+                                let cart = document.getElementById('cart');
+                                cart.appendChild(component.node);
+                            }
+                        },
+                        "sticky": false
+                    }
+                },
+                });
+
                 // Private Lessons
                 ui.createComponent('collection', {
                     id: '272533389384',
