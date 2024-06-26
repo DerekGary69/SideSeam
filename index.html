@@ -59,6 +59,10 @@
     </style>
 </head>
 <body>
+    <div id="blocker">
+        <h2>Site Currently Under Construction</h2>
+        <p>We apologize for the inconvenience, but our site is currently under construction. Please check back later for updates.</p>
+    </div>
     <style>
 
 
@@ -92,6 +96,25 @@
             font-family: var(--body-font);
             box-sizing: border-box;
             margin: 0;
+        }
+
+        #blocker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            z-index: 9999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        main {
+            display: none;
         }
 
         body {
@@ -219,6 +242,7 @@
             display: flex;
             flex-direction: column;
             /* padding: 1rem 0; */
+           
         }
 
         article {
@@ -228,6 +252,7 @@
             width: 100%;
             max-width: 700px;
             margin: 0 auto;
+            
         }
 
         article p {
