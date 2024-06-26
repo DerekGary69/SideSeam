@@ -241,7 +241,7 @@
         section {
             display: flex;
             flex-direction: column;
-            /* padding: 1rem 0; */
+            padding: 1rem 0;
            
         }
 
@@ -716,11 +716,12 @@
                         },
 
                         "contents": {
-                            "button": true,
+                            "button": false,
                             "buttonWithQuantity": false,
                             "description": true,
                             "quantityIncrement": false,
                             "quantityDecrement": false,
+                            "price": false,
                         },
                         "text": {
                             "button": "Book",
@@ -908,6 +909,8 @@
                         },
 
                         "contents": {
+                            "img": false,
+                            "imgWithCarousel": true,
                             "button": true,
                             "buttonWithQuantity": false,
                             "description": true,
@@ -921,6 +924,7 @@
                         },
                         "order": [
                             "img",
+                            "imgWithCarousel",  
                             "title",
                             "description",
                             "price",
