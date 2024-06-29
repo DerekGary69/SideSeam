@@ -6,8 +6,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Side Seam Sewing</title>
     <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 20
+        }
+
         /* http://meyerweb.com/eric/tools/css/reset/ 
            v2.0 | 20110126
            License: none (public domain)
@@ -89,6 +98,13 @@
         @media (min-width: 700px) {
             li {
                 text-align: center;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+            #about .has-image.shopify-buy__layout-vertical.shopify-buy__product {
+                flex-direction: column !important;
             }
         }
 
@@ -308,8 +324,8 @@
 
         img {
             max-width: 100%;
-            height: auto;
-            max-height: 600px;
+            width: fit-content;
+            height: 400px;
             object-fit: contain;
             align-self: flex-start;
         }
@@ -694,7 +710,7 @@
                         "events": {
                             "afterRender": function(component) {
                                 let moreInfoBtns = document.querySelectorAll('h6');
-                                console.log(component);
+                                // console.log(component);
                                 moreInfoBtns.forEach(btn => {
                                     if(btn.parentNode.querySelector('.details')) {
                                         return;
@@ -718,6 +734,7 @@
                         },
 
                         "contents": {
+                            "title": false,
                             "button": false,
                             "buttonWithQuantity": false,
                             "description": true,
@@ -738,7 +755,10 @@
                             "options",
                             "button",
                             "buttonWithQuantity"
-                        ]
+                        ],
+                        "classes": {
+                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                        }
                     },
                     "option": {},
                     "cart": {
@@ -887,7 +907,7 @@
                         "events": {
                             "afterRender": function(component) {
                                 let moreInfoBtns = document.querySelectorAll('h6');
-                                console.log(component);
+                                // console.log(component);
                                 moreInfoBtns.forEach(btn => {
                                     if(btn.parentNode.querySelector('.details')) {
                                         return;
@@ -907,12 +927,28 @@
 
                                 });
 
+                                //custom image carousel nav button:
+                                let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                lessonImgs.forEach(img => {
+                                    if(img.querySelector('.carousel-button--next')) {
+                                        return;
+                                    } else {
+                                        let imgNav = document.createElement('div');
+                                        imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                        imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                                                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                        img.appendChild(imgNav);
+                                    }
+
+                                });
+                                
+
                             }
                         },
 
                         "contents": {
-                            "img": false,
-                            "imgWithCarousel": true,
+                            "img": true,
+                            "imgWithCarousel": false,
                             "button": true,
                             "buttonWithQuantity": false,
                             "description": true,
@@ -933,7 +969,10 @@
                             "options",
                             "button",
                             "buttonWithQuantity"
-                        ]
+                        ],
+                        "classes": {
+                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                        }
                     },
                     "option": {},
                     "cart": {
@@ -1111,6 +1150,21 @@
                                 participants.innerText = 'Number of Spots:';
                                 quantContainer.insertBefore(participants, quantContainer.firstChild);
 
+                                //custom image carousel nav button:
+                                let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                lessonImgs.forEach(img => {
+                                    if(img.querySelector('.carousel-button--next')) {
+                                        return;
+                                    } else {
+                                        let imgNav = document.createElement('div');
+                                        imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                        imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                                                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                        img.appendChild(imgNav);
+                                    }
+
+                                });
+
                             }
                         },
 
@@ -1134,7 +1188,10 @@
                             "options",
                             "button",
                             "buttonWithQuantity"
-                        ]
+                        ],
+                        "classes": {
+                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                        }
                     },
                     "option": {},
                     },
@@ -1202,6 +1259,21 @@
                                 participants.innerText = 'Number of Spots:';
                                 quantContainer.insertBefore(participants, quantContainer.firstChild);
 
+                                //custom image carousel nav button:
+                                let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                lessonImgs.forEach(img => {
+                                    if(img.querySelector('.carousel-button--next')) {
+                                        return;
+                                    } else {
+                                        let imgNav = document.createElement('div');
+                                        imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                        imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                                                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                        img.appendChild(imgNav);
+                                    }
+
+                                });
+
                             }
                         },
 
@@ -1225,7 +1297,10 @@
                             "options",
                             "button",
                             "buttonWithQuantity"
-                        ]
+                        ],
+                        "classes": {
+                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                        }
                     },
                     "option": {},
                     },
@@ -1381,6 +1456,11 @@
             font-weight: bold;
         }
 
+        .shopify-buy__product-description i {
+            font-style: italic;
+        }
+
+
         .shopify-buy__product__price {
             padding: 0 1rem;
             font-size: 1.25em;
@@ -1408,6 +1488,58 @@
             display: flex;
             flex-direction: column;
             gap: 4rem;
+        }
+
+        button.carousel-button.carousel-button--previous {
+            display: none;
+        }
+
+        .carousel-button.carousel-button--next {
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .nexticon.carousel-button.carousel-button--next {
+            padding-left: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .shopify-buy__product-img-wrapper img {
+            max-width: 100%;
+            width: fit-content;
+            /* height: 100%; */
+            height: 400px;
+            object-fit: contain;
+            align-self: flex-start;
+        }
+
+        #about img.shopify-buy__product__variant-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #about .has-image.shopify-buy__layout-vertical.shopify-buy__product {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0;
+            width: 100%;
+            flex-wrap: nowrap;
+        }
+
+        #about article {
+            width: 100%;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        #about .shopify-buy__product-img-wrapper {
+            width: 100%;
+            margin: auto 0;
         }
 
     </style>
