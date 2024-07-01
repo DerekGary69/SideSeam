@@ -103,8 +103,11 @@
         }
 
         @media (max-width: 700px) {
-            #about .has-image.shopify-buy__layout-vertical.shopify-buy__product {
+            .has-image.shopify-buy__layout-vertical.shopify-buy__product {
                 flex-direction: column !important;
+            }
+            section#contact {
+                max-width: 100% !important;
             }
         }
 
@@ -274,8 +277,8 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
+            /* max-width: 700px; */
+            /* margin: 0 auto; */
             
         }
 
@@ -383,6 +386,8 @@
 
         section#contact {
             padding-top: 0;
+            max-width: 70%;
+            margin: auto;
         }
 
         #multisession article {
@@ -452,8 +457,8 @@
             align-items: flex-start;
             gap: 1rem;
             margin-bottom: 2rem;
-            max-width: 700px;
-            margin: 0 auto;
+            /* max-width: 700px;
+            margin: 0 auto; */
         }
 
         /* burger menu */
@@ -489,6 +494,10 @@
 
         .burger.open span:nth-child(3) {
             transform: translateY(-0.65rem) rotate(-45deg);
+        }
+
+        .hidden {
+            display: none;
         }
 
     </style>
@@ -566,7 +575,11 @@
                 <p>
                     If you have a specific inquiry, feel free to get in touch.
                 </p>
-                <form netlify>
+                <form netlify netlify-honeypot="honeypot">
+                    <div class="hidden">
+                        <label for="honeypot">Do not fill this out</label>
+                        <input type="text" id="honeypot" name="honeypot">
+                    </div>                    
                     <input type="text" id="name" name="name" placeholder="Name" required autocomplete="name">
                     <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
                     <textarea id="message" name="message" placeholder="Message" required></textarea>
@@ -928,18 +941,35 @@
                                 });
 
                                 //custom image carousel nav button:
-                                let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
-                                lessonImgs.forEach(img => {
-                                    if(img.querySelector('.carousel-button--next')) {
+                                // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                // lessonImgs.forEach(img => {
+                                //     if(img.querySelector('.carousel-button--next')) {
+                                //         return;
+                                //     } else {
+                                //         let imgNav = document.createElement('div');
+                                //         imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                //         img.appendChild(imgNav);
+                                //     }
+
+                                // });
+
+                                //contain everything after image container in a div
+                                let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                productContainers.forEach(container => {
+                                    if(container.querySelector('.productDescription')) {
                                         return;
                                     } else {
-                                        let imgNav = document.createElement('div');
-                                        imgNav.className = 'nexticon carousel-button carousel-button--next';
-                                        imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
-                                                                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
-                                        img.appendChild(imgNav);
+                                        let productDescription = document.createElement('div');
+                                        productDescription.className = 'productDescription';
+                                        let nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        while (nextElement) {
+                                            productDescription.appendChild(nextElement);
+                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        }
+                                        container.appendChild(productDescription);
                                     }
-
                                 });
                                 
 
@@ -1151,18 +1181,35 @@
                                 quantContainer.insertBefore(participants, quantContainer.firstChild);
 
                                 //custom image carousel nav button:
-                                let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
-                                lessonImgs.forEach(img => {
-                                    if(img.querySelector('.carousel-button--next')) {
+                                // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                // lessonImgs.forEach(img => {
+                                //     if(img.querySelector('.carousel-button--next')) {
+                                //         return;
+                                //     } else {
+                                //         let imgNav = document.createElement('div');
+                                //         imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                //         img.appendChild(imgNav);
+                                //     }
+
+                                // });
+
+                                //contain everything after image container in a div
+                                let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                productContainers.forEach(container => {
+                                    if(container.querySelector('.productDescription')) {
                                         return;
                                     } else {
-                                        let imgNav = document.createElement('div');
-                                        imgNav.className = 'nexticon carousel-button carousel-button--next';
-                                        imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
-                                                                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
-                                        img.appendChild(imgNav);
+                                        let productDescription = document.createElement('div');
+                                        productDescription.className = 'productDescription';
+                                        let nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        while (nextElement) {
+                                            productDescription.appendChild(nextElement);
+                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        }
+                                        container.appendChild(productDescription);
                                     }
-
                                 });
 
                             }
@@ -1260,18 +1307,35 @@
                                 quantContainer.insertBefore(participants, quantContainer.firstChild);
 
                                 //custom image carousel nav button:
-                                let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
-                                lessonImgs.forEach(img => {
-                                    if(img.querySelector('.carousel-button--next')) {
+                                // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                // lessonImgs.forEach(img => {
+                                //     if(img.querySelector('.carousel-button--next')) {
+                                //         return;
+                                //     } else {
+                                //         let imgNav = document.createElement('div');
+                                //         imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                //         img.appendChild(imgNav);
+                                //     }
+
+                                // });
+
+                                //contain everything after image container in a div
+                                let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                productContainers.forEach(container => {
+                                    if(container.querySelector('.productDescription')) {
                                         return;
                                     } else {
-                                        let imgNav = document.createElement('div');
-                                        imgNav.className = 'nexticon carousel-button carousel-button--next';
-                                        imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
-                                                                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
-                                        img.appendChild(imgNav);
+                                        let productDescription = document.createElement('div');
+                                        productDescription.className = 'productDescription';
+                                        let nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        while (nextElement) {
+                                            productDescription.appendChild(nextElement);
+                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        }
+                                        container.appendChild(productDescription);
                                     }
-
                                 });
 
                             }
@@ -1332,11 +1396,13 @@
         }
 
         .shopify-buy__layout-vertical {
-            margin: 0;
-            padding: 0;
             display: flex;
-            flex-direction: column;
-            padding-bottom: 2rem;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0;
+            width: 100%;
+            flex-wrap: nowrap;
         }
 
         .shopify-buy__quantity-container {
@@ -1364,14 +1430,19 @@
         .shopify-buy__btn-and-quantity {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: flex-end;
             padding: 0;
         }
 
         .shopify-buy__btn-wrapper {
+            align-self: flex-start;
+            margin: 0 16px;
+        }
+
+        .shopify-buy__btn-and-quantity .shopify-buy__btn-wrapper {
             align-self: flex-end;
-            margin-right: 16px;
+
         }
 
         .toggleContainer {
@@ -1481,13 +1552,15 @@
             background-color: var(--font-colour);
             border-radius: 0.5em;
             color: var(--background);
-            
+            width: max-content;
+            max-width: 100%;
+            align-self: flex-start;
         }
 
         .shopify-buy__collection-products {
             display: flex;
             flex-direction: column;
-            gap: 4rem;
+            gap: 6rem;
         }
 
         button.carousel-button.carousel-button--previous {
@@ -1507,21 +1580,21 @@
             align-items: center;
         }
 
-        .shopify-buy__product-img-wrapper img {
+        /* .shopify-buy__product-img-wrapper img {
             max-width: 100%;
             width: fit-content;
-            /* height: 100%; */
+            height: 100%;
             height: 400px;
             object-fit: contain;
             align-self: flex-start;
-        }
+        } */
 
-        #about img.shopify-buy__product__variant-img {
+        img.shopify-buy__product__variant-img {
             width: 100%;
             height: 100%;
         }
 
-        #about .has-image.shopify-buy__layout-vertical.shopify-buy__product {
+        .has-image.shopify-buy__layout-vertical.shopify-buy__product {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -1531,15 +1604,21 @@
             flex-wrap: nowrap;
         }
 
-        #about article {
+        article {
             width: 100%;
             margin: 0;
             max-width: 100%;
         }
 
-        #about .shopify-buy__product-img-wrapper {
+        .shopify-buy__product-img-wrapper {
             width: 100%;
             margin: auto 0;
+        }
+
+        .productDescription {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
         }
 
     </style>
