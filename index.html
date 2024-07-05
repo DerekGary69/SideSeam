@@ -205,6 +205,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 999999;
         }
 
         #headerMain {
@@ -840,8 +841,8 @@
                                 "font-weight": "500",
                                 "line-height": "1.5",
                                 "font-size": "24px",
-                                "padding": "16px",
-                                "border-radius": "0.5em",
+                                "padding": "0.5rem",
+                                "border-radius": "0.5rem",
                             },
                             "footer": {
                                 "background-color": "#F9F3EC",
@@ -849,13 +850,17 @@
                             },
                         },
                         "text": {
-                        "total": "Subtotal:",
-                        "button": "Checkout"
+                            "total": "Subtotal:",
+                            "button": "Checkout"
                         },
                         "popup": false,
                         
                     },
                     "lineItem": {
+                        
+                        "contents": {
+                            "quantity": true,
+                        },
                         "styles": {
                             "lineItem": {
                                 "font-size": "18px",
@@ -872,7 +877,7 @@
                                 "font-family": "Karla, sans-serif",
                                 "font-weight": "500",
                                 "line-height": "1.5",
-                            },
+                            }
                         },
                     },
                     "toggle": {
@@ -1008,114 +1013,7 @@
                         }
                     },
                     "option": {},
-                    "cart": {
-                        "iframe": true,
-                        "styles": {
-                            "close": {
-                                "outline": "0",
-                                "position": "relative",
-                                "top": "0",
-                                "right": "0",
-                                "font-family": "Karla, sans-serif",
-                            },
-
-                            "lineItems": {
-                                "margin-top": "20px",
-                                "font-size": "16px",
-                                
-                            },
-                            "cart": {
-                                "background-color": "#F9F3EC",
-                                "color": "#451616",
-                                "font-size": "16px",
-                                
-                            },
-                            "notice": {
-                                "display": "none"
-                            },
-                            
-                            "header": {
-                                "padding": "16px",
-                                "display": "flex",
-                                "justify-content": "space-between",
-                            },
-                            "cart-items": {
-                                "padding": "100px 0 135px 0"
-                            },
-                            "title": {
-                                "color": "#451616",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                                "font-size": "28px",
-                            },
-                            "subtotal": {
-                                "font-size": "24px",
-                                "color": "#451616",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                            },
-                            "subtotalText": {
-                                "font-size": "20px",
-                                "text-transform": "unset",
-                                "color": "#451616",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                            },
-                            "button": {
-                                "background-color": "#451616",
-                                "color": "#F9F3EC",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                                "font-size": "24px",
-                                "padding": "16px",
-                                "border-radius": "0.5em",
-                            },
-                            "footer": {
-                                "background-color": "#F9F3EC",
-                                "color": "#451616",
-                            },
-                        },
-                        "text": {
-                        "total": "Subtotal:",
-                        "button": "Checkout"
-                        },
-                        "popup": true,
-                        
-                    },
-                    "lineItem": {
-                        "styles": {
-                            "lineItem": {
-                                "font-size": "18px",
-                            },
-                            "itemTitle": {
-                                "font-size": "24px",
-                            },
-                            "variantTitle": {
-                                "font-size": "18px",
-                            },
-                            "price": {
-                                "font-size": "24px",
-                                "color": "#451616",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                            },
-                        },
-                    },
-                    "toggle": {
-                        "iframe": false,
-                        "events": {
-                            "afterRender": function(component) {
-                                let cart = document.getElementById('cart');
-                                cart.appendChild(component.node);
-                            }
-                        },
-                        "sticky": false
-                    }
+                    
                 },
                 });
 
@@ -1618,7 +1516,28 @@
             margin: auto 0;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 0;
         }
+
+        .shopify-buy__product-img-wrapper::after {
+            content: 'arrow_forward_ios';
+            font-family: 'Material Symbols Outlined';
+            font-size: 32px; /* Adjust size as needed */
+            color: #000000c3; /* Adjust color as needed */
+            opacity: 0.5; /* Adjust for discreteness */
+            position: absolute;
+            right: 8px; 
+            /* top: 0; */
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* height: 100%; */
+            pointer-events: none; /* Ensures click events pass through to the image */
+            z-index: 1; /* Ensures the icon is above the image */
+        }
+
 
         .productDescription {
             display: flex;
