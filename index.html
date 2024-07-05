@@ -563,7 +563,7 @@
             padding: 0;
         }
 
-        .closeAboutBtn {
+        .closeAboutBtn, .closeTncButton {
             cursor: pointer;
             background-color: transparent;
             color: #000;
@@ -575,6 +575,12 @@
         <div class="aboutTitle"><h2>About Imogen </h2><button class="material-symbols-outlined closeAboutBtn" autofocus>close</button></div>
         
         <article id='product-component-1720157667725'></article>
+    </dialog>
+
+    <dialog class="tncModal">
+        <div class="aboutTitle"><h2>Terms and Conditions</h2><button class="material-symbols-outlined closeTncButton" autofocus>close</button></div>
+        
+        <article id='product-component-1720162763201'></article>
     </dialog>
     <header>
         <div id="headerMain">
@@ -593,8 +599,8 @@
             <li onclick="menuOption('multisession')">In-House Projects</li>
             <li onclick="menuOption('dropin')">Open Sessions</li>
             <li onclick="menuOption('contact')">Contact</li>
-            <li onclick="aboutModal.showModal(); ">About Imogen</li>
-            <li>Terms and Conditions</li>
+            <li onclick="aboutModal.showModal();">About Imogen</li>
+            <li onclick="tncModal.showModal();">Terms and Conditions</li>
         </menu>
     </header>
     <main>
@@ -694,7 +700,7 @@
     </main>
     <footer>
         <h5>Side Seam, North Canberra ACT</h5>
-        <a href="#">Terms and Conditions</a>
+        <p onclick="tncModal.showModal()" style="text-decoration: underline; cursor: pointer;">Terms and Conditions</p>
         <a href="mailto:sideseamsewing@gmail.com">sideseamsewing@gmail.com</a>
         <a href="https://instagram.com/side_seam">Instagram</a>
         <p>Copyright 2024</p>
@@ -731,10 +737,16 @@
 
         let aboutModal = document.querySelector('.aboutModal');
         let closeBtn = document.querySelector('.closeAboutBtn');
+        let tncModal = document.querySelector('.tncModal')
+        let closeTncButton = document.querySelector('.closeTncButton')
 
         closeBtn.addEventListener('click', function() {
             aboutModal.close();
-            window.scrollTo({ top: 0 });
+        });
+
+        closeTncButton.addEventListener('click', function() {
+            tncModal.close();
+            // window.scrollTo({ bottom: 0 });
         });
 
 
@@ -993,6 +1005,86 @@
                 ui.createComponent('product', {
                     id: '6893796360264',
                     node: document.getElementById('product-component-1720157667725'),
+                    moneyFormat: '%24%7B%7Bamount%7D%7D',
+                    options: {
+                    "productSet": {
+                        "iframe": false,
+                        "contents": {
+                            "pagination": false
+                        },
+                        "styles": {
+                            "productSet": {
+                                "products": {
+                                    "padding": "0",
+                                    
+                                },
+                                
+                            }
+                        },
+                    },
+                    "product": {
+                        "iframe": false,
+
+                        "events": {
+                            "afterRender": function(component) {
+                                //contain everything after image container in a div
+                                let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                productContainers.forEach(container => {
+                                    if(container.querySelector('.productDescription')) {
+                                        return;
+                                    } else {
+                                        let productDescription = document.createElement('div');
+                                        productDescription.className = 'productDescription';
+                                        let nextElement;
+                                        if(container.querySelector('.shopify-buy__product-img-wrapper')) {
+                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        }
+                                        while (nextElement) {
+                                            productDescription.appendChild(nextElement);
+                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                        }
+                                        container.appendChild(productDescription);
+                                    }
+                                }); 
+                                
+                            }
+                        },
+
+                        "contents": {
+                            "title": false,
+                            "button": false,
+                            "buttonWithQuantity": false,
+                            "description": true,
+                            "quantityIncrement": false,
+                            "quantityDecrement": false,
+                            "price": false,
+                        },
+                        "text": {
+                            "button": "Book",
+                            "outOfStock": bookedText,
+
+                        },
+                        "order": [
+                            "img",
+                            "title",
+                            "description",
+                            "price",
+                            "options",
+                            "button",
+                            "buttonWithQuantity"
+                        ],
+                        "classes": {
+                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                        }
+                    },
+                    "option": {},    
+                },
+                });
+
+                // tandcs
+                ui.createComponent('product', {
+                    id: '6893798785096',
+                    node: document.getElementById('product-component-1720162763201'),
                     moneyFormat: '%24%7B%7Bamount%7D%7D',
                     options: {
                     "productSet": {
