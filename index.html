@@ -78,14 +78,19 @@
         :root {
             font-size: 16px;
             --background: #F9F3EC;
-            --privateBG: #CCD9B0;
+            /* Disabled colours for now */
+            /* --privateBG: #CCD9B0;
             --multiBG: #A3CECE;
             --dropinBG: #E0B685;
-            --font-colour: #451616;
+            --font-colour: #451616; */
+            --font-colour: #000000;
             --button-colour: var(--font-colour);
             --button-text: var(--background);
             --header-font: 'Karla', sans-serif;
             --body-font: 'Inconsolata', monospace;
+            --privateBG: #EDE7E2;
+            --multiBG: #E2DBD6;
+            --dropinBG: #D6CFCA;
         }
 
         /* @media (min-width: 1200px) {
@@ -796,7 +801,7 @@
                             },
                             "cart": {
                                 "background-color": "#F9F3EC",
-                                "color": "#451616",
+                                "color": "#000",
                                 "font-size": "16px",
                                 
                             },
@@ -813,7 +818,7 @@
                                 "padding": "100px 0 135px 0"
                             },
                             "title": {
-                                "color": "#451616",
+                                "color": "#000",
                                 "font-family": "Karla, sans-serif",
                                 "font-weight": "500",
                                 "line-height": "1.5",
@@ -821,7 +826,7 @@
                             },
                             "subtotal": {
                                 "font-size": "24px",
-                                "color": "#451616",
+                                "color": "#000",
                                 "font-family": "Karla, sans-serif",
                                 "font-weight": "500",
                                 "line-height": "1.5",
@@ -829,13 +834,13 @@
                             "subtotalText": {
                                 "font-size": "20px",
                                 "text-transform": "unset",
-                                "color": "#451616",
+                                "color": "#000",
                                 "font-family": "Karla, sans-serif",
                                 "font-weight": "500",
                                 "line-height": "1.5",
                             },
                             "button": {
-                                "background-color": "#451616",
+                                "background-color": "#000",
                                 "color": "#F9F3EC",
                                 "font-family": "Karla, sans-serif",
                                 "font-weight": "500",
@@ -846,7 +851,7 @@
                             },
                             "footer": {
                                 "background-color": "#F9F3EC",
-                                "color": "#451616",
+                                "color": "#000",
                             },
                         },
                         "text": {
@@ -873,7 +878,7 @@
                             },
                             "price": {
                                 "font-size": "24px",
-                                "color": "#451616",
+                                "color": "#000",
                                 "font-family": "Karla, sans-serif",
                                 "font-weight": "500",
                                 "line-height": "1.5",
@@ -1414,6 +1419,7 @@
 
         .shopify-buy__product-description {
             padding: 0 1rem;
+            align-self: flex-start;
         }
 
         .shopify-buy__product-description p, h6 {
@@ -1499,7 +1505,7 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: flex-end;
             gap: 0;
             width: 100%;
             flex-wrap: nowrap;
@@ -1513,7 +1519,7 @@
 
         .shopify-buy__product-img-wrapper {
             width: 100%;
-            margin: auto 0;
+            margin: 0;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -1523,9 +1529,9 @@
         .shopify-buy__product-img-wrapper::after {
             content: 'arrow_forward_ios';
             font-family: 'Material Symbols Outlined';
-            font-size: 32px; /* Adjust size as needed */
-            color: #000000c3; /* Adjust color as needed */
-            opacity: 0.5; /* Adjust for discreteness */
+            font-size: 32px; 
+            color: var(--font-colour);
+            opacity: 0.5;
             position: absolute;
             right: 8px; 
             /* top: 0; */
@@ -1534,8 +1540,13 @@
             align-items: center;
             justify-content: center;
             /* height: 100%; */
-            pointer-events: none; /* Ensures click events pass through to the image */
-            z-index: 1; /* Ensures the icon is above the image */
+            pointer-events: none; 
+            z-index: 1; 
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .shopify-buy__product-img-wrapper:hover::after {
+            opacity: 1;
         }
 
 
@@ -1544,6 +1555,7 @@
             flex-direction: column;
             max-width: 50%;
             padding-bottom: 1rem;
+            align-self: flex-start;
         }
 
     </style>
