@@ -573,6 +573,43 @@
             font-size: 3rem;
         }
 
+        #loadingScreen {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 120%; 
+            background: var(--background); 
+            z-index: 999;
+        }
+
+        #loadingScreen div:not(.loader) {
+            position: absolute; 
+            top: 40%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-size: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+        }
+
+        .loader {
+            border: 8px solid var(--font-colour);
+            border-top: 8px solid var(--background);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+            margin: 2rem
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
     </style>
     <dialog class="aboutModal">
         <div class="aboutTitle"><h2>About Imogen </h2><button class="material-symbols-outlined closeAboutBtn" autofocus>close</button></div>
@@ -606,7 +643,16 @@
             <li onclick="tncModal.showModal();">Terms and Conditions</li>
         </menu>
     </header>
-    <main>
+    <div id="loadingScreen">
+
+        <div>
+            <div class="loader"></div>
+            <h3>Fetching Lessons...</h3>
+            <h4>Please wait a moment</h4>
+        </div>
+        
+    </div>
+    <main style="display: none;">
         
         <section id="about">
             <!-- <img style="max-height: unset;" src="placeholder.jpeg" alt="Portrait of Imogen"> -->
@@ -787,768 +833,783 @@
 
         let bookedText = 'Fully Booked';
 
+        let promises = [];
+
         ShopifyBuy.UI.onReady(client).then(
             function (ui) {
+            
+                let headerPromise = new Promise((resolve, reject) => {
 
-                //Header 
-                ui.createComponent('product', {
-                    id: '6891729223752',
-                    node: document.getElementById('product-component-1719369822001'),
-                    moneyFormat: '%24%7B%7Bamount%7D%7D',
-                    options: {
-                    "productSet": {
-                        "iframe": false,
-                        "contents": {
-                            "pagination": false
-                        },
-                        "styles": {
-                            "productSet": {
-                                "products": {
-                                    "padding": "0",
-                                    
-                                },
-                                
-                            }
-                        },
-                    },
-                    "product": {
-                        "iframe": false,
+                    //Header 
+                    ui.createComponent('product', {
+                        id: '6891729223752',
+                        node: document.getElementById('product-component-1719369822001'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
                         
-                        "DOMEvents": {
-                            "click h6": function(event) {
-                                let details = this.wrapper.querySelector('.details');
-                                details.classList.toggle('show');
-                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
-                            }
-                        },
-
-                        "events": {
-                            "afterRender": function(component) {
-                                let moreInfoBtns = document.querySelectorAll('h6');
-                                // console.log(component);
-                                moreInfoBtns.forEach(btn => {
-                                    if(btn.parentNode.querySelector('.details')) {
-                                        return;
-                                    }
-
-                                    let descriptionDiv = document.createElement('div');
-                                    descriptionDiv.className = 'details';
-
-                                    let nextElement = btn.nextElementSibling;
-                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
-                                        // Move the p element to the description div
-                                        descriptionDiv.appendChild(nextElement);
-                                        nextElement = btn.nextElementSibling;
-                                    }
-
-                                    btn.parentNode.insertBefore(descriptionDiv, btn);
-
-                                });
-
-                                if(document.querySelector(".shopify-buy__product i")) {
-                                    if(document.querySelector('.aboutBtn')) {
-                                        console.log('already added');
-                                        return;
-                                    }
-                                    let aboutLink = document.querySelector(".shopify-buy__product i")
-                                    let aboutModal = document.querySelector('.aboutModal');
-                                    aboutLink.addEventListener('click', function() {
-                                        aboutModal.showModal();
-                                    });
-                                    aboutLink.classList.add('aboutBtn');
-                                }  
-
-                            }
-                        },
-
-                        "contents": {
-                            "title": false,
-                            "button": false,
-                            "buttonWithQuantity": false,
-                            "description": true,
-                            "quantityIncrement": false,
-                            "quantityDecrement": false,
-                            "price": false,
-                        },
-                        "text": {
-                            "button": "Book",
-                            "outOfStock": bookedText,
-
-                        },
-                        "order": [
-                            "img",
-                            "title",
-                            "description",
-                            "price",
-                            "options",
-                            "button",
-                            "buttonWithQuantity"
-                        ],
-                        "classes": {
-                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
-                        }
-                    },
-                    "option": {},
-                    "cart": {
-                        "iframe": true,
-                        "styles": {
-                            "close": {
-                                "outline": "0",
-                                "position": "relative",
-                                "top": "0",
-                                "right": "0",
-                                "font-family": "Karla, sans-serif",
-                            },
-
-                            "lineItems": {
-                                "margin-top": "20px",
-                                "font-size": "16px",
-                                
-                            },
-                            "cart": {
-                                "background-color": "#F9F3EC",
-                                "color": "#000",
-                                "font-size": "16px",
-                                
-                            },
-                            "notice": {
-                                "display": "none"
-                            },
+                        "product": {
+                            "iframe": false,
                             
-                            "header": {
-                                "padding": "16px",
-                                "display": "flex",
-                                "justify-content": "space-between",
+                            "DOMEvents": {
+                                "click h6": function(event) {
+                                    let details = this.wrapper.querySelector('.details');
+                                    details.classList.toggle('show');
+                                    this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                                }
                             },
-                            "cart-items": {
-                                "padding": "100px 0 135px 0"
-                            },
-                            "title": {
-                                "color": "#000",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                                "font-size": "28px",
-                            },
-                            "subtotal": {
-                                "font-size": "24px",
-                                "color": "#000",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                            },
-                            "subtotalText": {
-                                "font-size": "20px",
-                                "text-transform": "unset",
-                                "color": "#000",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                            },
-                            "button": {
-                                "background-color": "#000",
-                                "color": "#F9F3EC",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                                "font-size": "24px",
-                                "padding": "0.5rem",
-                                "border-radius": "0.5rem",
-                            },
-                            "footer": {
-                                "background-color": "#F9F3EC",
-                                "color": "#000",
-                            },
-                        },
-                        "text": {
-                            "total": "Subtotal:",
-                            "button": "Checkout"
-                        },
-                        "popup": false,
-                        
-                    },
-                    "lineItem": {
-                        
-                        "contents": {
-                            "quantity": true,
-                        },
-                        "styles": {
-                            "lineItem": {
-                                "font-size": "18px",
-                            },
-                            "itemTitle": {
-                                "font-size": "24px",
-                            },
-                            "variantTitle": {
-                                "font-size": "18px",
-                            },
-                            "price": {
-                                "font-size": "24px",
-                                "color": "#000",
-                                "font-family": "Karla, sans-serif",
-                                "font-weight": "500",
-                                "line-height": "1.5",
-                            }
-                        },
-                    },
-                    "toggle": {
-                        "iframe": false,
-                        "events": {
-                            "afterRender": function(component) {
-                                let cart = document.getElementById('cart');
-                                cart.appendChild(component.node);
-                            }
-                        },
-                        "sticky": false
-                    }
-                },
-                });
 
-                // about imo
-                ui.createComponent('product', {
-                    id: '6893796360264',
-                    node: document.getElementById('product-component-1720157667725'),
-                    moneyFormat: '%24%7B%7Bamount%7D%7D',
-                    options: {
-                    "productSet": {
-                        "iframe": false,
-                        "contents": {
-                            "pagination": false
+                            "events": {
+                                
+                                "afterRender": function(component) {
+                                    
+
+                                    let moreInfoBtns = document.querySelectorAll('h6');
+                                    // console.log(component);
+                                    moreInfoBtns.forEach(btn => {
+                                        if(btn.parentNode.querySelector('.details')) {
+                                            return;
+                                        }
+
+                                        let descriptionDiv = document.createElement('div');
+                                        descriptionDiv.className = 'details';
+
+                                        let nextElement = btn.nextElementSibling;
+                                        while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                            // Move the p element to the description div
+                                            descriptionDiv.appendChild(nextElement);
+                                            nextElement = btn.nextElementSibling;
+                                        }
+
+                                        btn.parentNode.insertBefore(descriptionDiv, btn);
+
+                                    });
+
+                                    if(document.querySelector(".shopify-buy__product i")) {
+                                        if(document.querySelector('.aboutBtn')) {
+                                            console.log('already added');
+                                            return;
+                                        }
+                                        let aboutLink = document.querySelector(".shopify-buy__product i")
+                                        let aboutModal = document.querySelector('.aboutModal');
+                                        aboutLink.addEventListener('click', function() {
+                                            aboutModal.showModal();
+                                        });
+                                        aboutLink.classList.add('aboutBtn');
+                                    }
+                                    
+                                    resolve();
+
+                                }
+                            },
+
+                            "contents": {
+                                "title": false,
+                                "button": false,
+                                "buttonWithQuantity": false,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                                "price": false,
+                            },
+                            "text": {
+                                "button": "Book",
+                                "outOfStock": bookedText,
+
+                            },
+                            "order": [
+                                "img",
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                            }
                         },
-                        "styles": {
-                            "productSet": {
-                                "products": {
-                                    "padding": "0",
+                        "option": {},
+                        "cart": {
+                            "iframe": true,
+                            "styles": {
+                                "close": {
+                                    "outline": "0",
+                                    "position": "relative",
+                                    "top": "0",
+                                    "right": "0",
+                                    "font-family": "Karla, sans-serif",
+                                },
+
+                                "lineItems": {
+                                    "margin-top": "20px",
+                                    "font-size": "16px",
                                     
                                 },
-                                
-                            }
-                        },
-                    },
-                    "product": {
-                        "iframe": false,
-
-                        "events": {
-                            "afterRender": function(component) {
-                                //contain everything after image container in a div
-                                let productContainers = document.querySelectorAll('.shopify-buy__product');
-                                productContainers.forEach(container => {
-                                    if(container.querySelector('.productDescription')) {
-                                        return;
-                                    } else {
-                                        let productDescription = document.createElement('div');
-                                        productDescription.className = 'productDescription';
-                                        let nextElement;
-                                        if(container.querySelector('.shopify-buy__product-img-wrapper')) {
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        while (nextElement) {
-                                            productDescription.appendChild(nextElement);
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        container.appendChild(productDescription);
-                                    }
-                                }); 
-                                
-                            }
-                        },
-
-                        "contents": {
-                            "title": false,
-                            "button": false,
-                            "buttonWithQuantity": false,
-                            "description": true,
-                            "quantityIncrement": false,
-                            "quantityDecrement": false,
-                            "price": false,
-                        },
-                        "text": {
-                            "button": "Book",
-                            "outOfStock": bookedText,
-
-                        },
-                        "order": [
-                            "img",
-                            "title",
-                            "description",
-                            "price",
-                            "options",
-                            "button",
-                            "buttonWithQuantity"
-                        ],
-                        "classes": {
-                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
-                        }
-                    },
-                    "option": {},    
-                },
-                });
-
-                // tandcs
-                ui.createComponent('product', {
-                    id: '6893798785096',
-                    node: document.getElementById('product-component-1720162763201'),
-                    moneyFormat: '%24%7B%7Bamount%7D%7D',
-                    options: {
-                    "productSet": {
-                        "iframe": false,
-                        "contents": {
-                            "pagination": false
-                        },
-                        "styles": {
-                            "productSet": {
-                                "products": {
-                                    "padding": "0",
+                                "cart": {
+                                    "background-color": "#F9F3EC",
+                                    "color": "#000",
+                                    "font-size": "16px",
                                     
                                 },
-                                
-                            }
-                        },
-                    },
-                    "product": {
-                        "iframe": false,
-
-                        "events": {
-                            "afterRender": function(component) {
-                                //contain everything after image container in a div
-                                let productContainers = document.querySelectorAll('.shopify-buy__product');
-                                productContainers.forEach(container => {
-                                    if(container.querySelector('.productDescription')) {
-                                        return;
-                                    } else {
-                                        let productDescription = document.createElement('div');
-                                        productDescription.className = 'productDescription';
-                                        let nextElement;
-                                        if(container.querySelector('.shopify-buy__product-img-wrapper')) {
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        while (nextElement) {
-                                            productDescription.appendChild(nextElement);
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        container.appendChild(productDescription);
-                                    }
-                                }); 
-                                
-                            }
-                        },
-
-                        "contents": {
-                            "title": false,
-                            "button": false,
-                            "buttonWithQuantity": false,
-                            "description": true,
-                            "quantityIncrement": false,
-                            "quantityDecrement": false,
-                            "price": false,
-                        },
-                        "text": {
-                            "button": "Book",
-                            "outOfStock": bookedText,
-
-                        },
-                        "order": [
-                            "img",
-                            "title",
-                            "description",
-                            "price",
-                            "options",
-                            "button",
-                            "buttonWithQuantity"
-                        ],
-                        "classes": {
-                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
-                        }
-                    },
-                    "option": {},    
-                },
-                });
-
-                // Private Lessons
-                ui.createComponent('collection', {
-                    id: '272533389384',
-                    node: document.getElementById('collection-component-1718350931193'),
-                    moneyFormat: '%24%7B%7Bamount%7D%7D',
-                    options: {
-                    "productSet": {
-                        "iframe": false,
-                        "contents": {
-                            "pagination": false
-                        },
-                        "styles": {
-                            "productSet": {
-                                "products": {
-                                    "padding": "0",
-                                    
+                                "notice": {
+                                    "display": "none"
                                 },
                                 
-                            }
+                                "header": {
+                                    "padding": "16px",
+                                    "display": "flex",
+                                    "justify-content": "space-between",
+                                },
+                                "cart-items": {
+                                    "padding": "100px 0 135px 0"
+                                },
+                                "title": {
+                                    "color": "#000",
+                                    "font-family": "Karla, sans-serif",
+                                    "font-weight": "500",
+                                    "line-height": "1.5",
+                                    "font-size": "28px",
+                                },
+                                "subtotal": {
+                                    "font-size": "24px",
+                                    "color": "#000",
+                                    "font-family": "Karla, sans-serif",
+                                    "font-weight": "500",
+                                    "line-height": "1.5",
+                                },
+                                "subtotalText": {
+                                    "font-size": "20px",
+                                    "text-transform": "unset",
+                                    "color": "#000",
+                                    "font-family": "Karla, sans-serif",
+                                    "font-weight": "500",
+                                    "line-height": "1.5",
+                                },
+                                "button": {
+                                    "background-color": "#000",
+                                    "color": "#F9F3EC",
+                                    "font-family": "Karla, sans-serif",
+                                    "font-weight": "500",
+                                    "line-height": "1.5",
+                                    "font-size": "24px",
+                                    "padding": "0.5rem",
+                                    "border-radius": "0.5rem",
+                                },
+                                "footer": {
+                                    "background-color": "#F9F3EC",
+                                    "color": "#000",
+                                },
+                            },
+                            "text": {
+                                "total": "Subtotal:",
+                                "button": "Checkout"
+                            },
+                            "popup": false,
+                            
                         },
-                    },
-                    "product": {
-                        "iframe": false,
-                        
-                        "DOMEvents": {
-                            "click h6": function(event) {
-                                let details = this.wrapper.querySelector('.details');
-                                details.classList.toggle('show');
-                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
-                            }
+                        "lineItem": {
+                            
+                            "contents": {
+                                "quantity": true,
+                            },
+                            "styles": {
+                                "lineItem": {
+                                    "font-size": "18px",
+                                },
+                                "itemTitle": {
+                                    "font-size": "24px",
+                                },
+                                "variantTitle": {
+                                    "font-size": "18px",
+                                },
+                                "price": {
+                                    "font-size": "24px",
+                                    "color": "#000",
+                                    "font-family": "Karla, sans-serif",
+                                    "font-weight": "500",
+                                    "line-height": "1.5",
+                                }
+                            },
                         },
-
-                        "events": {
-                            "afterRender": function(component) {
-                                let moreInfoBtns = document.querySelectorAll('h6');
-                                // console.log(component);
-                                moreInfoBtns.forEach(btn => {
-                                    if(btn.parentNode.querySelector('.details')) {
-                                        return;
-                                    }
-
-                                    let descriptionDiv = document.createElement('div');
-                                    descriptionDiv.className = 'details';
-
-                                    let nextElement = btn.nextElementSibling;
-                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
-                                        // Move the p element to the description div
-                                        descriptionDiv.appendChild(nextElement);
-                                        nextElement = btn.nextElementSibling;
-                                    }
-
-                                    btn.parentNode.insertBefore(descriptionDiv, btn);
-
-                                });
-
-                                //custom image carousel nav button:
-                                // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
-                                // lessonImgs.forEach(img => {
-                                //     if(img.querySelector('.carousel-button--next')) {
-                                //         return;
-                                //     } else {
-                                //         let imgNav = document.createElement('div');
-                                //         imgNav.className = 'nexticon carousel-button carousel-button--next';
-                                //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
-                                //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
-                                //         img.appendChild(imgNav);
-                                //     }
-
-                                // });
-
-                                //contain everything after image container in a div
-                                let productContainers = document.querySelectorAll('.shopify-buy__product');
-                                productContainers.forEach(container => {
-                                    if(container.querySelector('.productDescription')) {
-                                        return;
-                                    } else {
-                                        let productDescription = document.createElement('div');
-                                        productDescription.className = 'productDescription';
-                                        let nextElement;
-                                        if(container.querySelector('.shopify-buy__product-img-wrapper')) {
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        while (nextElement) {
-                                            productDescription.appendChild(nextElement);
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        container.appendChild(productDescription);
-                                    }
-                                });
-                                
-
-                            }
-                        },
-
-                        "contents": {
-                            "img": true,
-                            "imgWithCarousel": false,
-                            "button": true,
-                            "buttonWithQuantity": false,
-                            "description": true,
-                            "quantityIncrement": false,
-                            "quantityDecrement": false,
-                        },
-                        "text": {
-                            "button": "Book",
-                            "outOfStock": bookedText,
-
-                        },
-                        "order": [
-                            "img",
-                            "imgWithCarousel",  
-                            "title",
-                            "description",
-                            "price",
-                            "options",
-                            "button",
-                            "buttonWithQuantity"
-                        ],
-                        "classes": {
-                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                        "toggle": {
+                            "iframe": false,
+                            "events": {
+                                "afterRender": function(component) {
+                                    let cart = document.getElementById('cart');
+                                    cart.appendChild(component.node);
+                                }
+                            },
+                            "sticky": false
                         }
                     },
-                    "option": {},
+                    });
+
+                });
+                promises.push(headerPromise);
+
+                let aboutPromise = new Promise((resolve, reject) => {
+                    // about imo
+                    ui.createComponent('product', {
+                        id: '6893796360264',
+                        node: document.getElementById('product-component-1720157667725'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
+                        "product": {
+                            "iframe": false,
+
+                            "events": {
+                                "afterRender": function(component) {
+                                    //contain everything after image container in a div
+                                    let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                    productContainers.forEach(container => {
+                                        if(container.querySelector('.productDescription')) {
+                                            return;
+                                        } else {
+                                            let productDescription = document.createElement('div');
+                                            productDescription.className = 'productDescription';
+                                            let nextElement;
+                                            if(container.querySelector('.shopify-buy__product-img-wrapper')) {
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            while (nextElement) {
+                                                productDescription.appendChild(nextElement);
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            container.appendChild(productDescription);
+                                        }
+                                    }); 
+
+                                    resolve();
+
+                                }
+                            },
+
+                            "contents": {
+                                "title": false,
+                                "button": false,
+                                "buttonWithQuantity": false,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                                "price": false,
+                            },
+                            "text": {
+                                "button": "Book",
+                                "outOfStock": bookedText,
+
+                            },
+                            "order": [
+                                "img",
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                            }
+                        },
+                        "option": {},    
+                    },
+                    });
+
+                });
+                promises.push(aboutPromise);
+
+                let tncPromise = new Promise((resolve, reject) => {
+
+                    // tandcs
+                    ui.createComponent('product', {
+                        id: '6893798785096',
+                        node: document.getElementById('product-component-1720162763201'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
+                        "product": {
+                            "iframe": false,
+
+                            "events": {
+                                "afterRender": function(component) {
+                                    //contain everything after image container in a div
+                                    let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                    productContainers.forEach(container => {
+                                        if(container.querySelector('.productDescription')) {
+                                            return;
+                                        } else {
+                                            let productDescription = document.createElement('div');
+                                            productDescription.className = 'productDescription';
+                                            let nextElement;
+                                            if(container.querySelector('.shopify-buy__product-img-wrapper')) {
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            while (nextElement) {
+                                                productDescription.appendChild(nextElement);
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            container.appendChild(productDescription);
+                                        }
+                                    }); 
+
+                                    resolve();
+                                }
+                            },
+
+                            "contents": {
+                                "title": false,
+                                "button": false,
+                                "buttonWithQuantity": false,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                                "price": false,
+                            },
+                            "text": {
+                                "button": "Book",
+                                "outOfStock": bookedText,
+
+                            },
+                            "order": [
+                                "img",
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                            }
+                        },
+                        "option": {},    
+                    },
+                    });
+
+                });
+                promises.push(tncPromise);
+
+
+                let privatePromise = new Promise((resolve, reject) => {
                     
-                },
+                    // Private Lessons
+                    ui.createComponent('collection', {
+                        id: '272533389384',
+                        node: document.getElementById('collection-component-1718350931193'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
+                        "productSet": {
+                            "events": {
+                                "afterRender": function(component) {
+                                    resolve();
+                                }
+                            },
+                            "iframe": false,
+                            "contents": {
+                                "pagination": false
+                            },
+                            "styles": {
+                                "productSet": {
+                                    "products": {
+                                        "padding": "0",
+                                        
+                                    },
+                                    
+                                }
+                            },
+                        },
+                        "product": {
+                            "iframe": false,
+                            
+                            "DOMEvents": {
+                                "click h6": function(event) {
+                                    let details = this.wrapper.querySelector('.details');
+                                    details.classList.toggle('show');
+                                    this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                                }
+                            },
+
+                            "events": {
+                                "afterRender": function(component) {
+                                    let moreInfoBtns = document.querySelectorAll('h6');
+                                    // console.log(component);
+                                    moreInfoBtns.forEach(btn => {
+                                        if(btn.parentNode.querySelector('.details')) {
+                                            return;
+                                        }
+
+                                        let descriptionDiv = document.createElement('div');
+                                        descriptionDiv.className = 'details';
+
+                                        let nextElement = btn.nextElementSibling;
+                                        while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                            // Move the p element to the description div
+                                            descriptionDiv.appendChild(nextElement);
+                                            nextElement = btn.nextElementSibling;
+                                        }
+
+                                        btn.parentNode.insertBefore(descriptionDiv, btn);
+
+                                    });
+
+                                    //custom image carousel nav button:
+                                    // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                    // lessonImgs.forEach(img => {
+                                    //     if(img.querySelector('.carousel-button--next')) {
+                                    //         return;
+                                    //     } else {
+                                    //         let imgNav = document.createElement('div');
+                                    //         imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                    //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                    //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                    //         img.appendChild(imgNav);
+                                    //     }
+
+                                    // });
+
+                                    //contain everything after image container in a div
+                                    let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                    productContainers.forEach(container => {
+                                        if(container.querySelector('.productDescription')) {
+                                            return;
+                                        } else {
+                                            let productDescription = document.createElement('div');
+                                            productDescription.className = 'productDescription';
+                                            let nextElement;
+                                            if(container.querySelector('.shopify-buy__product-img-wrapper')) {
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            while (nextElement) {
+                                                productDescription.appendChild(nextElement);
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            container.appendChild(productDescription);
+                                        }
+                                    });
+                                    
+
+                                }
+                            },
+
+                            "contents": {
+                                "img": true,
+                                "imgWithCarousel": false,
+                                "button": true,
+                                "buttonWithQuantity": false,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                            },
+                            "text": {
+                                "button": "Book",
+                                "outOfStock": bookedText,
+
+                            },
+                            "order": [
+                                "img",
+                                "imgWithCarousel",  
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                            }
+                        },
+                        "option": {},
+                        
+                    },
+                    });
+
                 });
+                promises.push(privatePromise);
 
                 //Course Lessons
                 // id: '443187364070',
                 // node: document.getElementById('collection-component-1718419270098'),
-        
-                ui.createComponent('collection', {
-                    id: '272533422152',
-                    node: document.getElementById('collection-component-1718419270098'),
-                    moneyFormat: '%24%7B%7Bamount%7D%7D',
-                    options: {
-                    "productSet": {
-                        "iframe": false,
-                        "contents": {
-                            "pagination": false
-                        },
-                        "styles": {
-                            "productSet": {
-                                "products": {
-                                    "padding": "0",
+                
+                let coursePromise = new Promise((resolve, reject) => {
+                    ui.createComponent('collection', {
+                        id: '272533422152',
+                        node: document.getElementById('collection-component-1718419270098'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
+                        "productSet": {
+                            "events": {
+                                "afterRender": function(component) {
+                                    resolve();
+                                }
+                            },
+                            "iframe": false,
+                            "contents": {
+                                "pagination": false
+                            },
+                            "styles": {
+                                "productSet": {
+                                    "products": {
+                                        "padding": "0",
+                                        
+                                    },
                                     
-                                },
-                                
-                            }
+                                }
+                            },
                         },
-                    },
-                    "product": {
-                        "iframe": false,
-                        
-                        "DOMEvents": {
-                            "click h6": function(event) {
-                                let details = this.wrapper.querySelector('.details');
-                                details.classList.toggle('show');
-                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
-                            }
-                        },
+                        "product": {
+                            "iframe": false,
+                            
+                            "DOMEvents": {
+                                "click h6": function(event) {
+                                    let details = this.wrapper.querySelector('.details');
+                                    details.classList.toggle('show');
+                                    this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                                }
+                            },
 
-                        "events": {
-                            "afterRender": function(component) {
-                                let moreInfoBtns = document.querySelectorAll('h6');
+                            "events": {
+                                "afterRender": function(component) {
+                                    let moreInfoBtns = document.querySelectorAll('h6');
 
-                                moreInfoBtns.forEach(btn => {
-                                    if(btn.parentNode.querySelector('.details')) {
-                                        return;
-                                    }
-
-                                    let descriptionDiv = document.createElement('div');
-                                    descriptionDiv.className = 'details';
-
-                                    let nextElement = btn.nextElementSibling;
-                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
-                                        // Move the p element to the description div
-                                        descriptionDiv.appendChild(nextElement);
-                                        nextElement = btn.nextElementSibling;
-                                    }
-
-                                    btn.parentNode.insertBefore(descriptionDiv, btn);
-
-                                });
-
-                                let quantContainer = this.view.wrapper.querySelector('.shopify-buy__quantity-container');
-
-                                let participants = document.createElement('p');
-                                participants.innerText = 'Number of Spots:';
-                                quantContainer.insertBefore(participants, quantContainer.firstChild);
-
-                                //custom image carousel nav button:
-                                // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
-                                // lessonImgs.forEach(img => {
-                                //     if(img.querySelector('.carousel-button--next')) {
-                                //         return;
-                                //     } else {
-                                //         let imgNav = document.createElement('div');
-                                //         imgNav.className = 'nexticon carousel-button carousel-button--next';
-                                //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
-                                //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
-                                //         img.appendChild(imgNav);
-                                //     }
-
-                                // });
-
-                                //contain everything after image container in a div
-                                let productContainers = document.querySelectorAll('.shopify-buy__product');
-                                productContainers.forEach(container => {
-                                    if(container.querySelector('.productDescription')) {
-                                        return;
-                                    } else {
-                                        let productDescription = document.createElement('div');
-                                        productDescription.className = 'productDescription';
-                                        let nextElement;
-                                        if(container.querySelector('.shopify-buy__product-img-wrapper')) {
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                    moreInfoBtns.forEach(btn => {
+                                        if(btn.parentNode.querySelector('.details')) {
+                                            return;
                                         }
-                                        while (nextElement) {
-                                            productDescription.appendChild(nextElement);
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        container.appendChild(productDescription);
-                                    }
-                                });
 
+                                        let descriptionDiv = document.createElement('div');
+                                        descriptionDiv.className = 'details';
+
+                                        let nextElement = btn.nextElementSibling;
+                                        while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                            // Move the p element to the description div
+                                            descriptionDiv.appendChild(nextElement);
+                                            nextElement = btn.nextElementSibling;
+                                        }
+
+                                        btn.parentNode.insertBefore(descriptionDiv, btn);
+
+                                    });
+
+                                    let quantContainer = this.view.wrapper.querySelector('.shopify-buy__quantity-container');
+
+                                    let participants = document.createElement('p');
+                                    participants.innerText = 'Number of Spots:';
+                                    quantContainer.insertBefore(participants, quantContainer.firstChild);
+
+                                    //custom image carousel nav button:
+                                    // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                    // lessonImgs.forEach(img => {
+                                    //     if(img.querySelector('.carousel-button--next')) {
+                                    //         return;
+                                    //     } else {
+                                    //         let imgNav = document.createElement('div');
+                                    //         imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                    //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                    //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                    //         img.appendChild(imgNav);
+                                    //     }
+
+                                    // });
+
+                                    //contain everything after image container in a div
+                                    let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                    productContainers.forEach(container => {
+                                        if(container.querySelector('.productDescription')) {
+                                            return;
+                                        } else {
+                                            let productDescription = document.createElement('div');
+                                            productDescription.className = 'productDescription';
+                                            let nextElement;
+                                            if(container.querySelector('.shopify-buy__product-img-wrapper')) {
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            while (nextElement) {
+                                                productDescription.appendChild(nextElement);
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            container.appendChild(productDescription);
+                                        }
+                                    });
+
+                                }
+                            },
+
+                            "contents": {
+                                "button": false,
+                                "buttonWithQuantity": true,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                            },
+                            "text": {
+                                "button": "Book",
+                                "outOfStock": bookedText,
+
+                            },
+                            "order": [
+                                "img",
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
                             }
                         },
-
-                        "contents": {
-                            "button": false,
-                            "buttonWithQuantity": true,
-                            "description": true,
-                            "quantityIncrement": false,
-                            "quantityDecrement": false,
+                        "option": {},
                         },
-                        "text": {
-                            "button": "Book",
-                            "outOfStock": bookedText,
-
-                        },
-                        "order": [
-                            "img",
-                            "title",
-                            "description",
-                            "price",
-                            "options",
-                            "button",
-                            "buttonWithQuantity"
-                        ],
-                        "classes": {
-                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
-                        }
-                    },
-                    "option": {},
-                    },
+                    });
                 });
+                promises.push(coursePromise);
+
                 // Drop-In Lessons
                 //id: '443187396838',
                 //node: document.getElementById('collection-component-1718421650096'),
-                ui.createComponent('collection', {
-                    id: '272533454920',
-                    node: document.getElementById('collection-component-1718421650096'),
-                    moneyFormat: '%24%7B%7Bamount%7D%7D',
-                    options: {
-                    "productSet": {
-                        "iframe": false,
-                        "contents": {
-                            "pagination": false
-                        },
-                        "styles": {
-                            "productSet": {
-                                "products": {
-                                    "padding": "0",
+
+                let dropInPromise = new Promise((resolve, reject) => {
+                    ui.createComponent('collection', {
+                        id: '272533454920',
+                        node: document.getElementById('collection-component-1718421650096'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
+                        "productSet": {
+                            "events": {
+                                "afterRender": function(component) {
+                                    resolve();
+                                }
+                            },
+                            "iframe": false,
+                            "contents": {
+                                "pagination": false
+                            },
+                            "styles": {
+                                "productSet": {
+                                    "products": {
+                                        "padding": "0",
+                                        
+                                    },
                                     
-                                },
-                                
-                            }
+                                }
+                            },
                         },
-                    },
-                    "product": {
-                        "iframe": false,
-                        
-                        "DOMEvents": {
-                            "click h6": function(event) {
-                                let details = this.wrapper.querySelector('.details');
-                                details.classList.toggle('show');
-                                this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
-                            }
-                        },
+                        "product": {
+                            "iframe": false,
+                            
+                            "DOMEvents": {
+                                "click h6": function(event) {
+                                    let details = this.wrapper.querySelector('.details');
+                                    details.classList.toggle('show');
+                                    this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                                }
+                            },
 
-                        "events": {
-                            "afterRender": function(component) {
-                                let moreInfoBtns = document.querySelectorAll('h6');
+                            "events": {
+                                "afterRender": function(component) {
+                                    let moreInfoBtns = document.querySelectorAll('h6');
 
-                                moreInfoBtns.forEach(btn => {
-                                    if(btn.parentNode.querySelector('.details')) {
-                                        return;
-                                    }
-
-                                    let descriptionDiv = document.createElement('div');
-                                    descriptionDiv.className = 'details';
-
-                                    let nextElement = btn.nextElementSibling;
-                                    while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
-                                        // Move the p element to the description div
-                                        descriptionDiv.appendChild(nextElement);
-                                        nextElement = btn.nextElementSibling;
-                                    }
-
-                                    btn.parentNode.insertBefore(descriptionDiv, btn);
-
-                                });
-
-                                let quantContainer = this.view.wrapper.querySelector('.shopify-buy__quantity-container');
-
-                                let participants = document.createElement('p');
-                                participants.innerText = 'Number of Spots:';
-                                quantContainer.insertBefore(participants, quantContainer.firstChild);
-
-                                //custom image carousel nav button:
-                                // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
-                                // lessonImgs.forEach(img => {
-                                //     if(img.querySelector('.carousel-button--next')) {
-                                //         return;
-                                //     } else {
-                                //         let imgNav = document.createElement('div');
-                                //         imgNav.className = 'nexticon carousel-button carousel-button--next';
-                                //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
-                                //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
-                                //         img.appendChild(imgNav);
-                                //     }
-
-                                // });
-
-                                //contain everything after image container in a div
-                                let productContainers = document.querySelectorAll('.shopify-buy__product');
-                                productContainers.forEach(container => {
-                                    if(container.querySelector('.productDescription')) {
-                                        return;
-                                    } else {
-                                        let productDescription = document.createElement('div');
-                                        productDescription.className = 'productDescription';
-                                        let nextElement;
-                                        if(container.querySelector('.shopify-buy__product-img-wrapper')) {
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                    moreInfoBtns.forEach(btn => {
+                                        if(btn.parentNode.querySelector('.details')) {
+                                            return;
                                         }
-                                        while (nextElement) {
-                                            productDescription.appendChild(nextElement);
-                                            nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
-                                        }
-                                        container.appendChild(productDescription);
-                                    }
-                                });
 
+                                        let descriptionDiv = document.createElement('div');
+                                        descriptionDiv.className = 'details';
+
+                                        let nextElement = btn.nextElementSibling;
+                                        while (nextElement && nextElement.tagName.toLowerCase() === 'p') {
+                                            // Move the p element to the description div
+                                            descriptionDiv.appendChild(nextElement);
+                                            nextElement = btn.nextElementSibling;
+                                        }
+
+                                        btn.parentNode.insertBefore(descriptionDiv, btn);
+
+                                    });
+
+                                    let quantContainer = this.view.wrapper.querySelector('.shopify-buy__quantity-container');
+
+                                    let participants = document.createElement('p');
+                                    participants.innerText = 'Number of Spots:';
+                                    quantContainer.insertBefore(participants, quantContainer.firstChild);
+
+                                    //custom image carousel nav button:
+                                    // let lessonImgs = document.querySelectorAll('.shopify-buy__product-img-wrapper');
+                                    // lessonImgs.forEach(img => {
+                                    //     if(img.querySelector('.carousel-button--next')) {
+                                    //         return;
+                                    //     } else {
+                                    //         let imgNav = document.createElement('div');
+                                    //         imgNav.className = 'nexticon carousel-button carousel-button--next';
+                                    //         imgNav.innerHTML = `<span class="material-symbols-outlined" style="font-size: 2rem;">wall_art</span>
+                                    //                                     <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward_ios</span>`;
+                                    //         img.appendChild(imgNav);
+                                    //     }
+
+                                    // });
+
+                                    //contain everything after image container in a div
+                                    let productContainers = document.querySelectorAll('.shopify-buy__product');
+                                    productContainers.forEach(container => {
+                                        if(container.querySelector('.productDescription')) {
+                                            return;
+                                        } else {
+                                            let productDescription = document.createElement('div');
+                                            productDescription.className = 'productDescription';
+                                            let nextElement;
+                                            if(container.querySelector('.shopify-buy__product-img-wrapper')) {
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            while (nextElement) {
+                                                productDescription.appendChild(nextElement);
+                                                nextElement = container.querySelector('.shopify-buy__product-img-wrapper').nextElementSibling;
+                                            }
+                                            container.appendChild(productDescription);
+                                        }
+                                    });
+
+                                }
+                            },
+
+                            "contents": {
+                                "button": false,
+                                "buttonWithQuantity": true,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                            },
+                            "text": {
+                                "button": "Book",
+                                "outOfStock": bookedText,
+
+                            },
+                            "order": [
+                                "img",
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
                             }
                         },
-
-                        "contents": {
-                            "button": false,
-                            "buttonWithQuantity": true,
-                            "description": true,
-                            "quantityIncrement": false,
-                            "quantityDecrement": false,
+                        "option": {},
                         },
-                        "text": {
-                            "button": "Book",
-                            "outOfStock": bookedText,
+                    });
+                });
+                promises.push(dropInPromise);
 
-                        },
-                        "order": [
-                            "img",
-                            "title",
-                            "description",
-                            "price",
-                            "options",
-                            "button",
-                            "buttonWithQuantity"
-                        ],
-                        "classes": {
-                            "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
-                        }
-                    },
-                    "option": {},
-                    },
+                Promise.all(promises).then(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.querySelector('main').style.removeProperty('display');
+                    window.scrollTo({ top: 0 });
                 });
             }
         )
