@@ -632,7 +632,7 @@
 
     </style>
     <dialog class="aboutModal">
-        <div class="aboutTitle"><h2>About Imogen </h2><button class="material-symbols-outlined closeAboutBtn" autofocus>close</button></div>
+        <div class="aboutTitle"><h2>About</h2><button class="material-symbols-outlined closeAboutBtn" autofocus>close</button></div>
         
         <article id='product-component-1720157667725'></article>
     </dialog>
@@ -659,7 +659,7 @@
             <li onclick="menuOption('multisession')">In-House Projects</li>
             <li onclick="menuOption('dropin')">Open Sessions</li>
             <li onclick="menuOption('contact')">Contact</li>
-            <li onclick="aboutModal.showModal(); document.querySelectorAll('main, footer').forEach(element => {element.style.display = 'none';});">About Imogen</li>
+            <li onclick="aboutModal.showModal(); document.querySelectorAll('main, footer').forEach(element => {element.style.display = 'none';});">About</li>
             <li onclick="tncModal.showModal(); document.querySelectorAll('main, footer').forEach(element => {element.style.display = 'none';});">Terms and Conditions</li>
         </menu>
     </header>
@@ -1320,6 +1320,15 @@
                                         }
                                     });
                                     
+                                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
+                                    comingSoonLinks.forEach(link => {
+                                        let parentDesc = link.closest('.productDescription');
+                                        console.log(parentDesc);
+                                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
+                                        let btnText = link.innerText;
+                                        buyBtn.innerText = btnText;
+                                        link.remove();
+                                    });
 
                                 }
                             },
@@ -1373,6 +1382,8 @@
                         "productSet": {
                             "events": {
                                 "afterRender": function(component) {
+                                    console.log(component);
+
                                     resolve();
                                 }
                             },
@@ -1463,6 +1474,16 @@
                                             }
                                             container.appendChild(productDescription);
                                         }
+                                    });
+
+                                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
+                                    comingSoonLinks.forEach(link => {
+                                        let parentDesc = link.closest('.productDescription');
+                                        console.log(parentDesc);
+                                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
+                                        let btnText = link.innerText;
+                                        buyBtn.innerText = btnText;
+                                        link.remove();
                                     });
 
                                 }
@@ -1602,6 +1623,16 @@
                                             }
                                             container.appendChild(productDescription);
                                         }
+                                    });
+
+                                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
+                                    comingSoonLinks.forEach(link => {
+                                        let parentDesc = link.closest('.productDescription');
+                                        console.log(parentDesc);
+                                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
+                                        let btnText = link.innerText;
+                                        buyBtn.innerText = btnText;
+                                        link.remove();
                                     });
 
                                 }
