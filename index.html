@@ -1320,15 +1320,15 @@
                                         }
                                     });
                                     
-                                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
-                                    comingSoonLinks.forEach(link => {
-                                        let parentDesc = link.closest('.productDescription');
-                                        console.log(parentDesc);
-                                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
-                                        let btnText = link.innerText;
-                                        buyBtn.innerText = btnText;
-                                        link.remove();
-                                    });
+                                    // let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
+                                    // comingSoonLinks.forEach(link => {
+                                    //     let parentDesc = link.closest('.productDescription');
+                                        
+                                    //     let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
+                                    //     let btnText = link.innerText;
+                                    //     buyBtn.innerText = btnText;
+                                    //     link.remove();
+                                    // });
 
                                 }
                             },
@@ -1476,15 +1476,15 @@
                                         }
                                     });
 
-                                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
-                                    comingSoonLinks.forEach(link => {
-                                        let parentDesc = link.closest('.productDescription');
-                                        console.log(parentDesc);
-                                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
-                                        let btnText = link.innerText;
-                                        buyBtn.innerText = btnText;
-                                        link.remove();
-                                    });
+                                    // let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
+                                    // comingSoonLinks.forEach(link => {
+                                    //     let parentDesc = link.closest('.productDescription');
+                                    //     console.log(parentDesc);
+                                    //     let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
+                                    //     let btnText = link.innerText;
+                                    //     buyBtn.innerText = btnText;
+                                    //     link.remove();
+                                    // });
 
                                 }
                             },
@@ -1625,15 +1625,7 @@
                                         }
                                     });
 
-                                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
-                                    comingSoonLinks.forEach(link => {
-                                        let parentDesc = link.closest('.productDescription');
-                                        console.log(parentDesc);
-                                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
-                                        let btnText = link.innerText;
-                                        buyBtn.innerText = btnText;
-                                        link.remove();
-                                    });
+                                    
 
                                 }
                             },
@@ -1673,6 +1665,29 @@
                     document.getElementById('loadingScreen').style.display = 'none';
                     document.querySelector('main').style.removeProperty('display');
                     window.scrollTo({ top: 0 });
+
+                    let comingSoonLinks = document.querySelectorAll('a[href="comingsoon"]');
+                    comingSoonLinks.forEach(link => {
+                        let parentDesc = link.closest('.productDescription');
+                        console.log(parentDesc);
+                        console.log(parentDesc.querySelector('.shopify-buy__option-select-wrapper'))
+                        if(parentDesc.querySelector('.shopify-buy__option-select-wrapper')) {
+                            let options = parentDesc.querySelector('.shopify-buy__option-select-wrapper');
+                            options.remove();
+                        }
+                        if(parentDesc.querySelector('.shopify-buy__product__price')) {
+                            let price = parentDesc.querySelector('.shopify-buy__product__price');
+                            price.remove();
+                        }
+                        if(parentDesc.querySelector('.shopify-buy__quantity-container')) {
+                            let quantity = parentDesc.querySelector('.shopify-buy__quantity-container');
+                            quantity.remove();
+                        }
+                        let buyBtn = parentDesc.querySelector('.shopify-buy__btn-disabled');
+                        let btnText = link.innerText;
+                        buyBtn.innerText = btnText;
+                        link.remove();
+                    });
                 });
             }
         )
