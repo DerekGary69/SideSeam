@@ -829,16 +829,16 @@
         let closeTncButton = document.querySelector('.closeTncButton')
 
         closeBtn.addEventListener('click', function() {
-            document.querySelector('main').style.display = 'unset';
-            document.querySelector('footer').style.display = 'unset';
+            document.querySelector('main').removeAttribute('style');
+            document.querySelector('footer').removeAttribute('style');
             window.scrollTo({ top: 0 });
             setMenu(false);
             aboutModal.close();
         });
 
         closeTncButton.addEventListener('click', function() {
-            document.querySelector('main').style.display = 'unset';
-            document.querySelector('footer').style.display = 'unset';
+            document.querySelector('main').removeAttribute('style');
+            document.querySelector('footer').removeAttribute('style');
             window.scrollTo({ top: 0 });
             setMenu(false);
             tncModal.close();
