@@ -642,6 +642,12 @@
             100% { transform: rotate(360deg); }
         }
 
+        #headerimg {
+            max-height: 3rem;
+            margin: 0 1rem;
+            align-self: center;
+        }
+
     </style>
     <dialog class="aboutModal">
         <div class="aboutTitle"><h2>About</h2><button class="material-symbols-outlined closeAboutBtn" autofocus>close</button></div>
@@ -656,6 +662,7 @@
     </dialog>
     <header>
         <div id="headerMain">
+            <!-- <img id="headerimg" src="android-chrome-192x192.png"> -->
              <h1 onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Side Seam</h1>
              <div id="headerBtns">
                 <div id="cart"></div>
@@ -1343,6 +1350,17 @@
 
                             "events": {
                                 "afterRender": function(component) {
+                                    console.log(component.node.firstChild);
+                                    let enquireBtn = document.createElement('button');
+                                    enquireBtn.className = 'enquireBtn';
+                                    enquireBtn.innerText = 'Enquire';
+                                    enquireBtn.style.alignSelf = 'flex-start';
+                                    enquireBtn.style.marginLeft = '1rem';
+                                    enquireBtn.addEventListener('click', function() {
+                                        let name = document.getElementById('name');
+                                        name.scrollIntoView({behavior: 'smooth'});
+                                    });
+                                    component.node.firstChild.appendChild(enquireBtn);
                                     renderProducts();
                                     resolve();
                                 }
@@ -1350,10 +1368,11 @@
 
                             "contents": {
                                 "button": false,
-                                "buttonWithQuantity": true,
+                                "buttonWithQuantity": false,
                                 "description": true,
                                 "quantityIncrement": false,
                                 "quantityDecrement": false,
+                                "price": false,
                             },
                             "text": {
                                 "button": "Book",
