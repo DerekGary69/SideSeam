@@ -712,6 +712,11 @@
         
         <section id="lessons">
             
+            <section id="offers">
+                <h2>Current Offers</h2>
+                <article id='collection-component-1730954152271'></article>
+            </section>
+            
             <section id="private">
                 
 
@@ -719,8 +724,6 @@
 
                 <h2>One-To-One Lessons</h2>
                 <article id='collection-component-1718350931193'></article>
-
-                
             </section>
             
             <section id="dropin">
@@ -1170,6 +1173,77 @@
                 });
                 promises.push(tncPromise);
 
+                let offersPromise = new Promise((resolve, reject) => {
+                    // Offers
+                    ui.createComponent('collection', {
+                        id: '274923520072',
+                        node: document.getElementById('collection-component-1730954152271'),
+                        moneyFormat: '%24%7B%7Bamount%7D%7D',
+                        options: {
+                        "productSet": {
+                            "iframe": false,
+                            "contents": {
+                                "pagination": false
+                            },
+                            "styles": {
+                                "productSet": {
+                                    "products": {
+                                        "padding": "0",
+                                        
+                                    },
+                                    
+                                }
+                            },
+                        },
+                        "product": {
+                            "iframe": false,
+                            
+                            "DOMEvents": {
+                                "click h6": function(event) {
+                                    let details = this.wrapper.querySelector('.details');
+                                    details.classList.toggle('show');
+                                    this.wrapper.querySelector('h6').innerText = details.classList.contains('show') ? 'Less Info...' : 'More Info...';
+                                }
+                            },
+
+                            "events": {
+                                "afterRender": function(component) {
+                                    renderProducts();
+                                    resolve();
+                                }
+                            },
+
+                            "contents": {
+                                "button": true,
+                                "buttonWithQuantity": false,
+                                "description": true,
+                                "quantityIncrement": false,
+                                "quantityDecrement": false,
+                            },
+                            "text": {
+                                "button": "Buy",
+                                "outOfStock": "Sold Out",
+
+                            },
+                            "order": [
+                                "img",
+                                "title",
+                                "description",
+                                "price",
+                                "options",
+                                "button",
+                                "buttonWithQuantity"
+                            ],
+                            "classes": {
+                                "imgWrapper" : "shopify-buy__product-img-wrapper carousel-button carousel-button--next",
+                            }
+                        },
+                        "option": {},
+                        
+                    },
+                    });
+                });
+                promises.push(offersPromise);
 
                 let privatePromise = new Promise((resolve, reject) => {
                     // Private Lessons
@@ -1423,6 +1497,9 @@
 
                     let quantContainers = document.querySelectorAll('.shopify-buy__quantity-container');
                     quantContainers.forEach(container => {
+                        if(container.querySelector('.quantIgnore')) {
+                            return;
+                        }
                         if(container.querySelector('.participants')) {
                             return;
                         }
