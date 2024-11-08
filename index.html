@@ -1559,6 +1559,13 @@
                         });
                         aboutLink.classList.add('aboutBtn');
                     }
+
+                    if(document.querySelector("option[value='$0.00']")) {
+                        let zeroOptions = document.querySelectorAll("option[value='$0.00']");
+                        zeroOptions.forEach(option => {
+                            option.remove();
+                        });
+                    }
                 }
 
                 Promise.all(promises).then(() => {
